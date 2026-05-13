@@ -589,8 +589,61 @@ body.ar .doc-section h2 { font-family: 'Cairo', sans-serif; }
 .doc-contact-box a { font-size: 16px; font-weight: 700; color: var(--crimson); }
 
 /* ══════════════════════════════════════════
-   RESPONSIVE
+   CONTACT PAGE
 ══════════════════════════════════════════ */
+.contact-hero { background: var(--crimson); padding: 60px 24px 48px; text-align: center; }
+.contact-hero-label { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.contact-hero-title { font-family: 'Playfair Display', serif; font-size: clamp(28px, 5vw, 44px); font-weight: 900; color: #fff; margin-bottom: 12px; }
+body.ar .contact-hero-title { font-family: 'Cairo', sans-serif; }
+.contact-hero-sub { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 460px; margin: 0 auto; line-height: 1.7; }
+
+.contact-content { max-width: 760px; margin: 0 auto; padding: 56px 24px 80px; }
+.contact-intro { font-size: 15px; color: var(--muted); line-height: 1.8; margin-bottom: 44px; text-align: center; }
+
+.contact-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.contact-card {
+  background: var(--white); border-radius: var(--radius);
+  padding: 28px 24px; border: 1.5px solid var(--border);
+  display: flex; flex-direction: column; gap: 10px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+.contact-card:hover { box-shadow: 0 12px 40px rgba(121,0,47,0.10); transform: translateY(-3px); }
+.contact-card-icon {
+  width: 46px; height: 46px; border-radius: 12px;
+  background: var(--gold-pale); display: flex; align-items: center;
+  justify-content: center; margin-bottom: 4px;
+}
+.contact-card-icon svg { width: 22px; height: 22px; color: var(--crimson); }
+.contact-card-title { font-size: 16px; font-weight: 700; color: var(--ink); }
+body.ar .contact-card-title { font-family: 'Cairo', sans-serif; }
+.contact-card-desc { font-size: 13px; color: var(--muted); line-height: 1.65; flex: 1; }
+.contact-card-action {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; color: var(--crimson);
+  margin-top: 4px;
+}
+.contact-card-action svg { width: 14px; height: 14px; }
+
+@media (max-width: 600px) { .contact-cards { grid-template-columns: 1fr; } }
+
+/* ══════════════════════════════════════════
+   FOOTER — quick links row
+══════════════════════════════════════════ */
+.footer-quick-links {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 6px 14px;
+}
+.footer-quick-links a,
+.footer-quick-links button {
+  font-size: 12px; font-weight: 600; color: var(--crimson);
+  background: none; border: none; font-family: inherit;
+  cursor: pointer; padding: 0; transition: opacity 0.2s;
+  letter-spacing: 0.01em; white-space: nowrap;
+}
+.footer-quick-links a:hover,
+.footer-quick-links button:hover { opacity: 0.65; }
+.footer-quick-sep { color: rgba(121,0,47,0.25); font-size: 12px; user-select: none; line-height: 1; }
 @media (max-width: 700px) {
   section { padding: 72px 20px; }
   .hero-cta-group { flex-direction: column; align-items: center; }
@@ -600,7 +653,8 @@ body.ar .doc-section h2 { font-family: 'Cairo', sans-serif; }
   .stat-item:last-child { border-bottom: none; }
   .site-footer { padding: 32px 20px 24px; }
   .footer-top { flex-direction: column; align-items: center; text-align: center; }
-  .footer-bottom { flex-direction: column; align-items: center; text-align: center; }
+  .footer-bottom { flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+  .footer-quick-links { justify-content: center; }
   .footer-links { justify-content: center; }
 }
 </style>
@@ -937,10 +991,14 @@ body.ar .doc-section h2 { font-family: 'Cairo', sans-serif; }
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-links">
+      <div class="footer-quick-links">
+        <a href="https://blog.yourdis.com" target="_blank" rel="noopener" data-i18n="footer_blog"></a>
+        <span class="footer-quick-sep">·</span>
         <button onclick="showPage('privacy')" data-i18n="footer_privacy"></button>
+        <span class="footer-quick-sep">·</span>
         <button onclick="showPage('terms')" data-i18n="footer_terms"></button>
-        <a href="mailto:info@yourdis.com" data-i18n="footer_contact"></a>
+        <span class="footer-quick-sep">·</span>
+        <button onclick="showPage('contact')" data-i18n="footer_contact"></button>
       </div>
       <div class="footer-copy" data-i18n="footer_copy"></div>
     </div>
@@ -1018,11 +1076,18 @@ body.ar .doc-section h2 { font-family: 'Cairo', sans-serif; }
   </div>
 
   <footer class="site-footer">
-    <div class="footer-bottom" style="justify-content:center;gap:24px;padding:0">
-      <button onclick="showPage('home')" style="font-size:13px;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;" data-i18n="nav_back_home"></button>
-      <button onclick="showPage('terms')" style="font-size:13px;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;" data-i18n="footer_terms"></button>
+    <div class="footer-bottom" style="flex-direction:column;align-items:center;gap:10px;padding:0">
+      <div class="footer-quick-links" style="justify-content:center">
+        <button onclick="showPage('home')" data-i18n="nav_back_home"></button>
+        <span class="footer-quick-sep">·</span>
+        <a href="https://blog.yourdis.com" target="_blank" rel="noopener" data-i18n="footer_blog"></a>
+        <span class="footer-quick-sep">·</span>
+        <button onclick="showPage('terms')" data-i18n="footer_terms"></button>
+        <span class="footer-quick-sep">·</span>
+        <button onclick="showPage('contact')" data-i18n="footer_contact"></button>
+      </div>
+      <div class="footer-copy" data-i18n="footer_copy"></div>
     </div>
-    <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted);opacity:0.7" data-i18n="footer_copy"></div>
   </footer>
 </div><!-- /page-privacy -->
 
@@ -1082,14 +1147,117 @@ body.ar .doc-section h2 { font-family: 'Cairo', sans-serif; }
   </div>
 
   <footer class="site-footer">
-    <div class="footer-bottom" style="justify-content:center;gap:24px;padding:0">
-      <button onclick="showPage('home')" style="font-size:13px;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;" data-i18n="nav_back_home"></button>
-      <button onclick="showPage('privacy')" style="font-size:13px;color:var(--muted);cursor:pointer;border:none;background:none;font-family:inherit;" data-i18n="footer_privacy"></button>
+    <div class="footer-bottom" style="flex-direction:column;align-items:center;gap:10px;padding:0">
+      <div class="footer-quick-links" style="justify-content:center">
+        <button onclick="showPage('home')" data-i18n="nav_back_home"></button>
+        <span class="footer-quick-sep">·</span>
+        <a href="https://blog.yourdis.com" target="_blank" rel="noopener" data-i18n="footer_blog"></a>
+        <span class="footer-quick-sep">·</span>
+        <button onclick="showPage('privacy')" data-i18n="footer_privacy"></button>
+        <span class="footer-quick-sep">·</span>
+        <button onclick="showPage('contact')" data-i18n="footer_contact"></button>
+      </div>
+      <div class="footer-copy" data-i18n="footer_copy"></div>
     </div>
-    <div style="text-align:center;margin-top:16px;font-size:12px;color:var(--muted);opacity:0.7" data-i18n="footer_copy"></div>
   </footer>
 </div><!-- /page-terms -->
 
+
+<!-- ══════════════════════════════════════════════════════════════
+     PAGE: CONTACT US
+══════════════════════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <nav class="site-nav">
+    <a class="nav-logo" href="#" onclick="showPage('home'); return false;"><img src="logo_Light.png" alt="Yourdis" /></a>
+    <div class="nav-right">
+      <button class="nav-back" onclick="showPage('home')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        <span data-i18n="nav_back_home"></span>
+      </button>
+      <button class="nav-lang-toggle" onclick="toggleLang()" id="lang-toggle-contact"></button>
+    </div>
+  </nav>
+
+  <div class="contact-hero">
+    <p class="contact-hero-label" data-i18n="contact_label"></p>
+    <h1 class="contact-hero-title" data-i18n="contact_title"></h1>
+    <p class="contact-hero-sub" data-i18n="contact_sub"></p>
+  </div>
+
+  <div class="contact-content">
+    <p class="contact-intro" data-i18n="contact_intro"></p>
+    <div class="contact-cards">
+
+      <!-- General Support -->
+      <a href="mailto:info@yourdis.com?subject=Support%20Request%20%E2%80%93%20Yourdis" class="contact-card">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
+        </div>
+        <div class="contact-card-title" data-i18n="contact_card1_title"></div>
+        <div class="contact-card-desc" data-i18n="contact_card1_desc"></div>
+        <div class="contact-card-action">
+          <span>info@yourdis.com</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Store Partnership -->
+      <a href="mailto:info@yourdis.com?subject=Store%20Partnership%20Inquiry" class="contact-card">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        </div>
+        <div class="contact-card-title" data-i18n="contact_card2_title"></div>
+        <div class="contact-card-desc" data-i18n="contact_card2_desc"></div>
+        <div class="contact-card-action">
+          <span>info@yourdis.com</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Press & Media -->
+      <a href="mailto:info@yourdis.com?subject=Press%20Inquiry" class="contact-card">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M18 10h-8M18 18h-8"/></svg>
+        </div>
+        <div class="contact-card-title" data-i18n="contact_card3_title"></div>
+        <div class="contact-card-desc" data-i18n="contact_card3_desc"></div>
+        <div class="contact-card-action">
+          <span>info@yourdis.com</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Privacy & Legal -->
+      <a href="mailto:info@yourdis.com?subject=Privacy%20%2F%20Legal%20Matter" class="contact-card">
+        <div class="contact-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="contact-card-title" data-i18n="contact_card4_title"></div>
+        <div class="contact-card-desc" data-i18n="contact_card4_desc"></div>
+        <div class="contact-card-action">
+          <span>info@yourdis.com</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-bottom" style="flex-direction:column;align-items:center;gap:10px;padding:0">
+      <div class="footer-quick-links" style="justify-content:center">
+        <button onclick="showPage('home')" data-i18n="nav_back_home"></button>
+        <span class="footer-quick-sep">·</span>
+        <a href="https://blog.yourdis.com" target="_blank" rel="noopener" data-i18n="footer_blog"></a>
+        <span class="footer-quick-sep">·</span>
+        <button onclick="showPage('privacy')" data-i18n="footer_privacy"></button>
+        <span class="footer-quick-sep">·</span>
+        <button onclick="showPage('terms')" data-i18n="footer_terms"></button>
+      </div>
+      <div class="footer-copy" data-i18n="footer_copy"></div>
+    </div>
+  </footer>
+</div><!-- /page-contact -->
 
 <!-- ══════════════════════════════════════════════════════════════
      SCRIPT
@@ -1114,10 +1282,10 @@ function showPage(name) {
 
 function syncNavToggles() {
   const label = currentLang === 'ar' ? 'English' : 'العربية';
-  const pt = document.getElementById('lang-toggle-privacy');
-  const tt = document.getElementById('lang-toggle-terms');
-  if (pt) pt.textContent = label;
-  if (tt) tt.textContent = label;
+  ['privacy', 'terms', 'contact'].forEach(id => {
+    const el = document.getElementById('lang-toggle-' + id);
+    if (el) el.textContent = label;
+  });
 }
 
 /* ── i18n ── */

@@ -25,8 +25,8 @@ const translations = {
   hero_cta_secondary:               { en: 'How it works',      ar: 'كيف يعمل' },
 
   /* ── Hero stats ── */
-  stat_fragrances_label:            { en: 'Fragrances',        ar: 'عطر في الكتالوج' },
-  stat_brands_label:                { en: 'Brands',            ar: 'دار عطور' },
+  stat_fragrances_label:            { en: 'Fragrances',        ar: 'عطر في التطبيق' },
+  stat_brands_label:                { en: 'Brands',            ar: 'دار عطرية' },
   stat_stores_label:                { en: 'Verified Stores',   ar: 'متجر موثوق' },
   stat_cashback_label:              { en: 'Cashback on Every Purchase',
                                       ar: 'استرداد نقدي على كل شراء' },
@@ -341,6 +341,20 @@ terms_s13_title:        { en: 'Changes to These Terms',                     ar: 
 terms_s13_p1:           { en: 'We may update these Terms from time to time. When we make material changes, we will notify you through the app or by email at least 14 days before the changes take effect. Continued use of Yourdis after the effective date constitutes your acceptance of the updated Terms.', ar: 'قد نحدّث هذه الشروط من وقت لآخر. عند إجراء تغييرات جوهرية، سنخطرك عبر التطبيق أو البريد الإلكتروني قبل 14 يوماً على الأقل من سريان التغييرات. استمرارك في استخدام يوردس بعد تاريخ السريان يُعدّ قبولاً منك للشروط المحدَّثة.' },
 
 terms_contact_q:        { en: 'Questions about these Terms?',               ar: 'لديك أسئلة حول هذه الشروط؟' },
+
+footer_blog:            { en: 'Blog',                       ar: 'المدونة' },
+contact_label:          { en: 'CONTACT',                    ar: 'تواصل معنا' },
+contact_title:          { en: 'Contact Us',                 ar: 'تواصل معنا' },
+contact_sub:            { en: 'We\'d love to hear from you. Choose the topic that best fits your message and we\'ll make sure it reaches the right person.', ar: 'يسعدنا سماعك. اختر الموضوع الذي يناسب رسالتك وسنوصلها إلى الشخص المناسب.' },
+contact_intro:          { en: 'All enquiries are handled through a single inbox. Tap any card to open your email app with the subject line pre-filled.', ar: 'تُعالَج جميع الاستفسارات عبر صندوق بريد واحد. اضغط على أي بطاقة لفتح تطبيق البريد مع سطر الموضوع جاهزاً.' },
+contact_card1_title:    { en: 'General Support',            ar: 'الدعم العام' },
+contact_card1_desc:     { en: 'Questions about the app, your account, cashback wallet, or anything else.',  ar: 'أسئلة حول التطبيق، حسابك، محفظة الاسترداد النقدي، أو أي شيء آخر.' },
+contact_card2_title:    { en: 'Store Partnership',          ar: 'شراكة المتاجر' },
+contact_card2_desc:     { en: 'Want to list your store on Yourdis and reach fragrance buyers across Saudi Arabia?', ar: 'هل تريد إدراج متجرك في يوردس والوصول إلى مشتري العطور في السعودية؟' },
+contact_card3_title:    { en: 'Press & Media',              ar: 'الإعلام والصحافة' },
+contact_card3_desc:     { en: 'Media enquiries, interview requests, or information about Yourdis for publications.', ar: 'استفسارات إعلامية، طلبات مقابلات، أو معلومات عن يوردس للمنشورات.' },
+contact_card4_title:    { en: 'Privacy & Legal',            ar: 'الخصوصية والشؤون القانونية' },
+contact_card4_desc:     { en: 'Questions about our Privacy Policy, data requests, or legal matters.', ar: 'أسئلة حول سياسة الخصوصية، طلبات البيانات، أو الشؤون القانونية.' },
 
 };
 
