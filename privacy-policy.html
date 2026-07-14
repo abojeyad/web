@@ -322,7 +322,8 @@ body.ar .doc-hero-title { font-family: 'Cairo', sans-serif; }
 .doc-content { max-width: 760px; margin: 0 auto; padding: 60px 24px 80px; }
 .doc-intro { background: var(--white); border-radius: 16px; padding: 28px 32px; border: 1.5px solid var(--border); margin-bottom: 48px; font-size: 15px; color: var(--muted); line-height: 1.8; }
 .doc-section { margin-bottom: 44px; }
-.doc-section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1.5px solid var(--border); }
+.doc-section:has(+ .doc-section) { padding-bottom: 28px; border-bottom: 1.5px solid var(--border); }
+.doc-section-header { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; }
 .doc-section-number { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); white-space: nowrap; flex-shrink: 0; }
 .doc-section h2 { font-family: 'Playfair Display', serif; font-size: clamp(17px, 3vw, 22px); font-weight: 900; color: var(--crimson); margin: 0; padding: 0; border: none; }
 body.ar .doc-section h2 { font-family: 'Cairo', sans-serif; }
@@ -437,7 +438,6 @@ function toggleLang() {
 <script src="shared-header.js"></script>
 
 <div class="doc-hero">
-  <p class="doc-hero-label" data-i18n="legal_label"></p>
   <h1 class="doc-hero-title" data-i18n="privacy_title"></h1>
   <p class="doc-hero-date" data-i18n="legal_updated"></p>
 </div>
