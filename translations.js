@@ -40,12 +40,17 @@ const translations = {
     en: 'TRACKING PRICES ACROSS 25+ VERIFIED SAUDI STORES',
     ar: 'نتتبع الأسعار عبر أكثر من 25 متجراً سعودياً موثوقاً',
   },
+  stores_reveal_cta: { en: 'See All Stores', ar: 'عرض كل المتاجر' },
+  stores_reveal_hint: {
+    en: 'Discover our network of 25+ verified Saudi stores',
+    ar: 'اكتشف شبكتنا المكوّنة من أكثر من 25 متجراً سعودياً موثوقاً',
+  },
   how_section_label: { en: 'SIMPLE AS 1-2-3', ar: 'بسيط كـ 1-2-3' },
   how_section_title: { en: 'How Yourdis works', ar: 'كيف يعمل يوردس' },
   how_step1_title: { en: 'Search any fragrance', ar: 'ابحث عن أي عطر' },
   how_step1_body: {
-    en: 'Look up any perfume by name, brand, or scent note. Our catalogue covers more than 130,000 fragrances from over 2,850 brands.',
-    ar: 'ابحث عن أي عطر بالاسم أو الدار أو النوتة. يضم كتالوجنا أكثر من 130,000 عطر من أكثر من 2,850 دار عطور.',
+    en: 'Look up any perfume by name, brand, or scent note. Our catalogue covers more than 131,000 fragrances from over 7,752 brands.',
+    ar: 'ابحث عن أي عطر بالاسم أو الدار أو النوتة. يضم كتالوجنا أكثر من 131,000 عطر من أكثر من 7,752 دار عطور.',
   },
   how_step2_title: { en: 'Compare every store', ar: 'قارن بين كل المتاجر' },
   how_step2_body: {
@@ -69,6 +74,26 @@ const translations = {
   },
   feat_compare_mock_label: { en: 'Creed Aventus · 100ml EDP', ar: 'كريد أفنتوس · 100مل' },
   feat_compare_best_badge: { en: 'BEST', ar: 'الأفضل' },
+  compare_row1_store: { en: 'Najd Al Athiyah', ar: 'نجد العذية' },
+  compare_row1_price: { // HTML
+    en: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>1,280</span>',
+    ar: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>1,280</span>',
+  },
+  compare_row2_store: { en: 'Loja', ar: 'لوجا' },
+  compare_row2_price: { // HTML
+    en: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>1,350</span>',
+    ar: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>1,350</span>',
+  },
+  compare_row3_store: { en: 'PO One', ar: 'بي أو ون' },
+  compare_row3_price: { // HTML
+    en: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>1,420</span>',
+    ar: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>1,420</span>',
+  },
+  compare_row4_store: { en: 'Define', ar: 'ديفاين' },
+  compare_row4_price: { // HTML
+    en: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>1,490</span>',
+    ar: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>1,490</span>',
+  },
   feat_alerts_title: { en: 'Price drop alerts', ar: 'تنبيهات انخفاض الأسعار' },
   feat_alerts_body: {
     en: 'Set your target price on any fragrance. The moment any store drops to or below it, you get a push notification instantly. Never miss a deal again.',
@@ -107,6 +132,10 @@ const translations = {
     en: 'Tom Ford Noir de Noir 100ml EDP — used about 10 times, great condition. Comes with original box.',
     ar: 'توم فورد نوار دي نوار 100مل — مستخدم 10 مرات تقريباً، حالة ممتازة. مع العلبة الأصلية.',
   },
+  feat_sell_mock_price: { // HTML
+    en: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>520</span>',
+    ar: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>520</span>',
+  },
   feat_sell_perk1: { en: '0% commission — Yourdis takes nothing', ar: '0% عمولة — يوردس لا يأخذ شيئاً' },
   feat_sell_perk2: { en: 'No listing fees, no hidden charges', ar: 'لا رسوم نشر، لا رسوم خفية' },
   feat_sell_perk3: { en: 'Direct chat with buyer, you set your price', ar: 'تواصل مباشر مع المشتري، أنت تحدد السعر' },
@@ -116,6 +145,10 @@ const translations = {
     ar: 'شاهد كيف تحرّك سعر أي عطر عبر الأشهر. افهم الأنماط الموسمية، اكتشف متى يكون السعر غير اعتيادي، وأتمِّ شراءك في الوقت الأمثل.',
   },
   feat_history_chart_title: { en: 'DIOR SAUVAGE EDP · 6 MONTHS', ar: 'ديور سوفاج EDP · 6 أشهر' },
+  feat_history_chart_price: { // HTML
+    en: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>380</span>',
+    ar: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>380</span>',
+  },
   feat_history_chart_change: { en: '↓ 12% from peak', ar: '↓ 12% عن الذروة' },
   feat_history_chart_note: { en: 'Good time to buy', ar: 'وقت مناسب للشراء' },
   feat_history_month_1: { en: 'Nov', ar: 'نوف' },
@@ -146,10 +179,26 @@ const translations = {
     ar: 'اسحب رصيدك في أي وقت، بلا حد أدنى.',
   },
   cashback_wallet_label: { en: 'MY WALLET', ar: 'محفظتي' },
+  cashback_wallet_balance: { // HTML
+    en: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>47.60</span>',
+    ar: '<span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>47.60</span>',
+  },
   cashback_wallet_sub: { en: 'Available to withdraw', ar: 'متاح للسحب' },
-  cashback_txn1: { en: 'Creed Aventus · نجد العذية', ar: 'كريد أفنتوس · نجد العذية' },
-  cashback_txn2: { en: 'Dior Sauvage · لوجا', ar: 'ديور سوفاج · لوجا' },
-  cashback_txn3: { en: 'BDK Rouge Smoking · عبق', ar: 'بي دي كي روج سموكنج · عبق' },
+  cashback_txn1: { en: 'Creed Aventus · Najd Al Athiyah', ar: 'كريد أفنتوس · نجد العذية' },
+  cashback_txn2: { en: 'Dior Sauvage · Loja', ar: 'ديور سوفاج · لوجا' },
+  cashback_txn3: { en: 'BDK Rouge Smoking · Abaq', ar: 'بي دي كي روج سموكنج · عبق' },
+  cashback_txn1_amount: { // HTML
+    en: '<span class="price">+<svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>25.60</span>',
+    ar: '<span class="price">+<svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>25.60</span>',
+  },
+  cashback_txn2_amount: { // HTML
+    en: '<span class="price">+<svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>7.60</span>',
+    ar: '<span class="price">+<svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>7.60</span>',
+  },
+  cashback_txn3_amount: { // HTML
+    en: '<span class="price">+<svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>14.40</span>',
+    ar: '<span class="price">+<svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>14.40</span>',
+  },
   community_section_label: { en: 'COMMUNITY', ar: 'المجتمع' },
   community_section_title: { // HTML
     en: 'A home for<br>fragrance lovers',
@@ -162,15 +211,15 @@ const translations = {
   comm_badge_inquiry: { en: 'Inquiry', ar: 'استفسار' },
   comm_badge_sale: { en: 'Sale', ar: 'بيع' },
   comm_badge_article: { en: 'Article', ar: 'مقالة' },
-  comm_post1_text: {
-    en: 'What\'s a good oud fragrance for winter evenings? Budget around SAR 400.',
-    ar: 'ما هو عطر عود مناسب لأمسيات الشتاء؟ الميزانية حوالي 400 ريال.',
+  comm_post1_text: { // HTML
+    en: 'What\'s a good oud fragrance for winter evenings? Budget around <span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>400</span>.',
+    ar: 'ما هو عطر عود مناسب لأمسيات الشتاء؟ الميزانية حوالي <span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>400</span>.',
   },
   comm_post1_replies: { en: '12 replies', ar: '12 رد' },
   comm_post1_views: { en: '340 views', ar: '340 مشاهدة' },
-  comm_post2_text: {
-    en: 'Selling Tom Ford Black Orchid 100ml EDP — used 5 times, barely sprayed. SAR 280.',
-    ar: 'للبيع توم فورد بلاك أوركيد 100مل — مستخدم 5 مرات فقط. السعر 280 ريال.',
+  comm_post2_text: { // HTML
+    en: 'Selling Tom Ford Black Orchid 100ml EDP — used 5 times, barely sprayed. <span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>280</span>.',
+    ar: 'للبيع توم فورد بلاك أوركيد 100مل — مستخدم 5 مرات فقط. السعر <span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>280</span>.',
   },
   comm_post2_replies: { en: '3 replies', ar: '3 ردود' },
   comm_post2_views: { en: '87 views', ar: '87 مشاهدة' },
@@ -185,9 +234,9 @@ const translations = {
     en: 'Your personal<br>fragrance expert.',
     ar: 'خبيرك العطري<br>الشخصي.',
   },
-  ai_section_sub: {
-    en: 'Ask anything — "What notes are in Sauvage?", "Best fresh fragrance under SAR 300?", "What should I wear to a wedding?" Accord AI gives expert-level answers and supports voice input.',
-    ar: 'اسأل أي شيء — "ما نوتات سوفاج؟"، "أفضل عطر منعش بأقل من 300 ريال؟"، "ماذا أرتدي في حفل زفاف؟" أكورد AI يقدم إجابات على مستوى الخبراء ويدعم الإدخال الصوتي.',
+  ai_section_sub: { // HTML
+    en: 'Ask anything — "What notes are in Sauvage?", "Best fresh fragrance under <span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="Saudi Riyal"><use href="#riyal-symbol"></use></svg>300</span>?", "What should I wear to a wedding?" Accord AI gives expert-level answers and supports voice input.',
+    ar: 'اسأل أي شيء — "ما نوتات سوفاج؟"، "أفضل عطر منعش بأقل من <span class="price"><svg class="riyal-icon" viewBox="0 0 1124.14 1256.39" role="img" aria-label="ريال سعودي"><use href="#riyal-symbol"></use></svg>300</span>؟"، "ماذا أرتدي في حفل زفاف؟" أكورد AI يقدم إجابات على مستوى الخبراء ويدعم الإدخال الصوتي.',
   },
   ai_name: { en: 'Accord AI', ar: 'أكورد AI' },
   ai_status: { en: '● Online', ar: '● متصل' },
@@ -228,6 +277,8 @@ const translations = {
 
   nav_home: { en: 'Home', ar: 'الرئيسية' },
   nav_back_home: { en: '← Home', ar: 'الرئيسية →' },
+  nav_home_aria: { en: 'Yourdis Home', ar: 'الصفحة الرئيسية ليوردس' },
+  nav_menu_aria: { en: 'Menu', ar: 'القائمة' },
   legal_label: { en: 'LEGAL', ar: 'قانوني' },
   legal_updated: { en: 'Last updated: June 2026', ar: 'آخر تحديث: يونيو 2026' },
   section_1: { en: 'SECTION 1', ar: 'القسم 1' },
@@ -410,6 +461,8 @@ const translations = {
     en: 'Questions about this Privacy Policy?',
     ar: 'لديك أسئلة حول سياسة الخصوصية؟',
   },
+  privacy_s8_google_link: { en: 'Google Privacy Policy', ar: 'سياسة خصوصية Google' },
+  privacy_s8_apple_link: { en: 'Apple Privacy Policy', ar: 'سياسة خصوصية Apple' },
 
   // ─── Terms of Service ─────────────────────────────────────────
 

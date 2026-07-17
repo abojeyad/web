@@ -1,6 +1,63 @@
 (function () {
+  // Official Saudi Riyal symbol (SAMA / Unicode U+20C1), defined once and reused
+  // everywhere via <svg class="riyal-icon"><use href="#riyal-symbol"></use></svg>
+  const spriteMarkup = `<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="riyal-symbol" viewBox="0 0 1124.14 1256.39">
+        <path d="M699.62,1113.02h0c-20.06,44.48-33.32,92.75-38.4,143.37l424.51-90.24c20.06-44.47,33.31-92.75,38.4-143.37l-424.51,90.24Z"/>
+        <path d="M1085.73,895.8c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.33v-135.2l292.27-62.11c20.06-44.47,33.32-92.75,38.4-143.37l-330.68,70.27V66.13c-50.67,28.45-95.67,66.32-132.25,110.99v403.35l-132.25,28.11V0c-50.67,28.44-95.67,66.32-132.25,110.99v525.69l-295.91,62.88c-20.06,44.47-33.33,92.75-38.42,143.37l334.33-71.05v170.26l-358.3,76.14c-20.06,44.47-33.32,92.75-38.4,143.37l375.04-79.7c30.53-6.35,56.77-24.4,73.83-49.24l68.78-101.97v-.02c7.14-10.55,11.3-23.27,11.3-36.97v-149.98l132.25-28.11v270.4l424.53-90.28Z"/>
+      </symbol>
+    </defs>
+  </svg>`;
+  document.body.insertAdjacentHTML('afterbegin', spriteMarkup);
+
   const style = document.createElement('style');
   style.textContent = `
+    .price { direction: ltr; unicode-bidi: isolate; }
+    .riyal-icon { display: inline-block; height: 0.72em; width: auto; vertical-align: -0.05em; fill: currentColor; margin-inline-end: 0.16em; }
+    .site-nav {
+      background: var(--white); border-bottom: 1.5px solid var(--border);
+      padding: 16px 24px;
+      display: flex; justify-content: space-between; align-items: center;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .site-nav.nav-transparent {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: transparent; border-bottom-color: transparent; box-shadow: none;
+      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, backdrop-filter 0.35s ease;
+    }
+    .site-nav.nav-transparent.nav-scrolled {
+      background: rgba(253,246,238,0.72);
+      -webkit-backdrop-filter: blur(18px); backdrop-filter: blur(18px);
+      border-bottom-color: transparent;
+      box-shadow: 0 8px 28px rgba(121,0,47,0.07);
+    }
+    .site-nav .nav-logo img { height: 34px; width: auto; display: block; }
+    .site-nav .nav-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .site-nav .nav-links { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+    .site-nav .nav-link {
+      font-size: 13px; font-weight: 600; color: var(--muted);
+      padding: 13px 12px; border-radius: 999px; transition: background 0.2s, color 0.2s, transform 0.2s;
+    }
+    .site-nav .nav-link:hover,
+    .site-nav .nav-link:focus-visible {
+      background: rgba(121,0,47,0.08);
+      color: var(--crimson);
+      transform: translateY(-1px);
+    }
+    .site-nav .nav-link.external::after {
+      content: '\\2197';
+      font-size: 0.8em;
+      margin-inline-start: 4px;
+    }
+    .site-nav .nav-logo a { display: inline-flex; align-items: center; gap: 8px; }
+    .nav-lang-toggle {
+      background: var(--white); border: 1.5px solid var(--border);
+      border-radius: 50px; padding: 7px 16px;
+      font-size: 13px; font-weight: 600; color: var(--crimson);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-lang-toggle:hover { background: var(--crimson); color: #fff; }
     .site-nav .nav-link.is-current {
       background: rgba(121,0,47,0.08);
       color: var(--crimson);
@@ -65,10 +122,10 @@
   const headerMarkup = `
     <header class="site-nav">
       <div class="nav-logo">
-        <a href="index.html" aria-label="Yourdis Home"><img src="logo_Light.png" alt="Yourdis" /></a>
+        <a href="index.html" data-i18n-aria="nav_home_aria"><img src="assets/logo_Light.png" alt="Yourdis" /></a>
       </div>
       <div class="nav-right">
-        <button type="button" class="nav-mobile-toggle js-mobile-toggle" aria-label="Menu" aria-expanded="false">
+        <button type="button" class="nav-mobile-toggle js-mobile-toggle" data-i18n-aria="nav_menu_aria" aria-expanded="false">
           <span class="nav-mobile-toggle-bar"></span>
           <span class="nav-mobile-toggle-bar"></span>
           <span class="nav-mobile-toggle-bar"></span>
@@ -122,6 +179,17 @@
   }
 
   const navEl = document.querySelector('.site-nav');
+
+  // Transparent-over-hero nav on every page — gains a glass background past the fold.
+  if (navEl) {
+    navEl.classList.add('nav-transparent');
+    const updateNavScroll = () => {
+      navEl.classList.toggle('nav-scrolled', window.scrollY > 40);
+    };
+    updateNavScroll();
+    window.addEventListener('scroll', updateNavScroll, { passive: true });
+  }
+
   const mobileToggle = document.querySelector('.js-mobile-toggle');
   if (navEl && mobileToggle) {
     const closeMobileMenu = () => {
