@@ -169,7 +169,7 @@ body.ar .section-title { font-family: 'Cairo', sans-serif; line-height: 1.4; }
 ══════════════════════════════════════════ */
 
 /* ─── Generic slide shell ─── */
-.slide { padding: var(--space-9) 24px; position: relative; overflow: hidden; scroll-margin-top: 76px; }
+.slide { padding: var(--space-6) 24px; position: relative; overflow: hidden; scroll-margin-top: 76px; }
 .slide-inner { max-width: 1180px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
 .slide-glow { position: absolute; border-radius: 50%; pointer-events: none; z-index: 0; }
 .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; display: flex; align-items: center; gap: 10px; }
@@ -179,16 +179,26 @@ body.ar .slide-title { font-family: 'Cairo', sans-serif; line-height: 1.35; }
 .slide-body { font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 480px; }
 
 /* ─── Text + Visual grid (reused by slides 1, 3, 7, 9) ─── */
-.tv-grid { display: flex; flex-direction: column; gap: var(--space-6); }
-.tv-text { display: flex; flex-direction: column; gap: var(--space-5); text-align: center; }
+.tv-grid { display: grid; grid-template-columns: 1fr; grid-template-areas: "text" "visual" "highlights"; gap: var(--space-6); }
+.tv-text { grid-area: text; display: flex; flex-direction: column; gap: var(--space-5); text-align: center; }
 .tv-text .eyebrow { justify-content: center; }
-.tv-visual { display: flex; justify-content: center; }
+.tv-visual { grid-area: visual; display: flex; justify-content: center; }
 @media (min-width: 1024px) {
-  .tv-grid { flex-direction: row; align-items: center; gap: var(--space-8); }
-  .tv-text, .tv-visual { flex: 1 1 50%; min-width: 0; }
+  .tv-grid { grid-template-columns: 40% 60%; grid-template-areas: "text visual" "highlights visual"; align-items: center; row-gap: var(--space-3); column-gap: var(--space-8); }
+  .tv-grid.reversed { grid-template-columns: 60% 40%; grid-template-areas: "visual text" "visual highlights"; }
   .tv-text { text-align: start; }
   .tv-text .eyebrow { justify-content: flex-start; }
 }
+
+/* ─── Highlight list: short key-point bullets under a slide-body ─── */
+.highlight-list { grid-area: highlights; display: flex; flex-direction: column; gap: 12px; margin-top: 0; width: 100%; }
+.highlight-card { display: flex; align-items: flex-start; gap: 14px; text-align: start; background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 16px 18px; transition: box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
+.highlight-card:hover { box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.highlight-card-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.highlight-card-icon svg { width: 19px; height: 19px; color: var(--crimson); }
+.highlight-card-title { font-size: 14.5px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+body.ar .highlight-card-title { font-family: 'Cairo', sans-serif; }
+.highlight-card-desc { font-size: 12.5px; color: var(--muted); line-height: 1.55; }
 
 /* ─── Store badges: shared premium component (Hero + Final CTA) ─── */
 .store-badges { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
@@ -208,48 +218,38 @@ body.ar .slide-title { font-family: 'Cairo', sans-serif; line-height: 1.35; }
 .store-badge small { font-size: 9px; font-weight: 400; opacity: 0.75; letter-spacing: 0.01em; }
 .store-badge strong { font-size: 14px; font-weight: 600; letter-spacing: -0.01em; }
 
-/* ─── Device frame (real screenshots, 1170:2532, never cropped/stretched) ─── */
-.device-stage { position: relative; display: flex; justify-content: center; align-items: center; padding: var(--space-6) 0; }
-.device-glow { position: absolute; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(circle, rgba(234,160,5,0.16) 0%, transparent 72%); pointer-events: none; }
-.device-frame {
+/* ─── Device mockup (pre-made mockup image, frame baked in — shown as-is) ─── */
+.device-stage { position: relative; display: flex; justify-content: center; align-items: flex-start; padding: 0; }
+.device-mockup {
   position: relative; z-index: 2;
-  width: min(68vw, 270px); aspect-ratio: 1170 / 2532;
-  background: linear-gradient(160deg, #3a0f1c, var(--crimson-deep) 55%, #2a0a12);
-  border-radius: 42px; padding: 9px;
-  box-shadow: var(--shadow-xl), inset 0 0 0 1.5px rgba(255,255,255,0.10);
+  width: min(72vw, 320px); height: auto; max-width: 100%;
   animation: deviceFloat 6.5s ease-in-out infinite;
 }
-.device-frame::after { content: ''; position: absolute; left: 50%; bottom: -22px; transform: translateX(-50%); width: 62%; height: 30px; background: radial-gradient(ellipse, rgba(76,0,37,0.30) 0%, transparent 72%); filter: blur(3px); z-index: -1; }
-.device-frame.compact { width: min(56vw, 230px); }
+@media (min-width: 1024px) {
+  .device-mockup { width: clamp(300px, 28vw, 400px); }
+}
 @keyframes deviceFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
-.device-screen { position: relative; width: 100%; height: 100%; border-radius: 33px; overflow: hidden; background: #0d0509; }
-.device-screen img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.device-sheen { position: absolute; inset: 0; background: linear-gradient(115deg, rgba(255,255,255,0.20) 0%, rgba(255,255,255,0) 22%, rgba(255,255,255,0) 76%, rgba(255,255,255,0.08) 100%); pointer-events: none; z-index: 4; mix-blend-mode: screen; }
-.device-notch { position: absolute; top: 8px; left: 50%; transform: translateX(-50%); width: 72px; height: 18px; background: #0d0509; border-radius: 10px; z-index: 5; }
 
-/* ─── Floating proof chips (reused across slides) ─── */
-.float-chip { position: absolute; z-index: 3; display: flex; align-items: center; gap: 9px; background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 10px 14px; box-shadow: var(--shadow-lg); animation: chipFloat 5.5s ease-in-out infinite; }
-.float-chip-icon { width: 30px; height: 30px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.float-chip-icon svg { width: 15px; height: 15px; }
-.float-chip-num { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 900; line-height: 1; direction: ltr; unicode-bidi: isolate; }
-.float-chip-label { font-size: 9px; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; margin-top: 2px; max-width: 84px; line-height: 1.3; }
-@keyframes chipFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-9px); } }
-@media (prefers-reduced-motion: reduce) { .device-frame, .float-chip { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .device-mockup { animation: none; } }
 
 /* ─── KPI stats: merged into the hero slide ─── */
 .kpi-inner { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-5); }
 .hero-kpi { margin-top: var(--space-8); }
 .stat-item {
   display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px;
-  padding: 28px 14px; border-radius: var(--radius); background: var(--cream); border: 1.5px solid var(--border);
+  padding: 30px 14px; border-radius: var(--radius);
+  background: linear-gradient(160deg, var(--white) 0%, var(--gold-pale) 160%);
+  border: 1.5px solid var(--border); box-shadow: var(--shadow-sm);
+  position: relative; overflow: hidden;
   transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out), border-color var(--dur-base) var(--ease-out);
 }
-.hero-slide .stat-item { background: var(--white); }
-.stat-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); border-color: rgba(234,160,5,0.35); }
-.stat-icon { width: 40px; height: 40px; border-radius: 12px; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.stat-icon svg { width: 19px; height: 19px; color: var(--crimson); }
-.stat-number { font-family: 'Playfair Display', serif; font-size: clamp(20px, 2.6vw, 26px); font-weight: 900; color: var(--crimson); display: block; direction: ltr; unicode-bidi: isolate; }
-.stat-label { font-size: 11.5px; color: var(--muted); font-weight: 500; }
+.stat-item::before { content: ''; position: absolute; top: -46px; inset-inline-end: -36px; width: 130px; height: 130px; border-radius: 50%; background: radial-gradient(circle, rgba(234,160,5,0.16) 0%, transparent 72%); pointer-events: none; }
+.hero-slide .stat-item { background: linear-gradient(160deg, var(--white) 0%, var(--gold-pale) 160%); }
+.stat-item:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: rgba(234,160,5,0.4); }
+.stat-icon { position: relative; z-index: 1; width: 44px; height: 44px; border-radius: 13px; background: linear-gradient(150deg, var(--crimson), var(--crimson-deep)); display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: 0 6px 16px rgba(121,0,47,0.28); }
+.stat-icon svg { width: 20px; height: 20px; color: #fff; }
+.stat-number { position: relative; z-index: 1; font-family: 'Playfair Display', serif; font-size: clamp(24px, 3vw, 32px); font-weight: 900; color: var(--crimson); display: block; line-height: 1; direction: ltr; unicode-bidi: isolate; }
+.stat-label { position: relative; z-index: 1; font-size: 12px; color: var(--muted); font-weight: 600; letter-spacing: 0.02em; }
 @media (max-width: 700px) {
   .hero-kpi { margin-top: var(--space-6); }
   .kpi-inner { grid-template-columns: 1fr 1fr; gap: var(--space-4); }
@@ -267,178 +267,15 @@ body.ar .hero-headline { font-family: 'Cairo', sans-serif; line-height: 1.3; }
 @media (min-width: 1024px) { .tv-text .hero-headline, .tv-text .hero-sub { margin-inline: 0; } }
 .hero-sub { font-size: clamp(15px, 2.5vw, 17px); color: var(--muted); max-width: 460px; line-height: 1.75; margin: 18px auto 28px; text-align: center; }
 @media (min-width: 1024px) { .hero-sub { text-align: start; } }
-.float-chip-alert { top: 8%; inset-inline-start: -4%; animation-delay: 0s; }
-.float-chip-alert .float-chip-icon { background: var(--gold-pale); color: var(--crimson); }
-.float-chip-alert .float-chip-num { color: #16a34a; }
-.float-chip-cashback { bottom: 10%; inset-inline-end: -6%; animation-delay: 1.8s; }
-.float-chip-cashback .float-chip-icon { background: rgba(121,0,47,0.08); color: var(--crimson); }
-.float-chip-cashback .float-chip-num { color: var(--crimson); }
 
-/* ── Slide 2: Store discovery — phone → orbital pill cluster ── */
-.stores-slide { background: var(--white); position: relative; overflow: hidden; }
-.stores-slide .slide-glow.a { width: 480px; height: 480px; background: radial-gradient(circle, rgba(234,160,5,0.10) 0%, transparent 70%); top: -120px; inset-inline-start: -100px; }
-.stores-slide .slide-glow.b { width: 420px; height: 420px; background: radial-gradient(circle, rgba(121,0,47,0.06) 0%, transparent 70%); bottom: -100px; inset-inline-end: -100px; }
-.store-reveal-stage { position: relative; z-index: 1; width: 100%; min-height: 460px; display: flex; align-items: center; justify-content: center; }
-@media (min-width: 1024px) { .store-reveal-stage { min-height: 680px; } }
-.store-default {
-  position: relative; display: flex; flex-direction: column; align-items: center; gap: var(--space-5);
-  opacity: 1; transform: scale(1) translateY(0); filter: blur(0px);
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), filter 0.5s var(--ease-out);
-}
-.store-reveal-stage.revealed .store-default { opacity: 0; transform: scale(0.8) translateY(10px); filter: blur(8px); pointer-events: none; }
-.reveal-btn { position: relative; align-self: center; display: inline-flex; align-items: center; gap: 10px; background: var(--crimson); color: #fff; padding: 16px 30px; border-radius: 50px; font-size: 15px; font-weight: 700; box-shadow: 0 4px 24px rgba(121,0,47,0.30); transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out); }
-@media (min-width: 1024px) { .tv-text .reveal-btn { align-self: flex-start; } }
-.reveal-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(121,0,47,0.38); }
-.reveal-btn:active { transform: translateY(0); }
-.reveal-btn svg { width: 17px; height: 17px; }
-.store-cluster-wrap { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; opacity: 0; transform: scale(0.92); transition: opacity 0.6s var(--ease-out) 0.25s, transform 0.6s var(--ease-out) 0.25s; pointer-events: none; }
-.store-reveal-stage.revealed .store-cluster-wrap { opacity: 1; transform: scale(1); pointer-events: auto; }
-.store-cluster { position: relative; width: 100%; max-width: 520px; aspect-ratio: 1 / 1; margin: 0 auto; }
-.store-pill {
-  position: absolute; transform: translate(-50%, -50%) scale(0.4);
-  display: inline-flex; align-items: center; justify-content: center; white-space: nowrap;
-  padding: 10px 18px; border-radius: 999px;
-  background: var(--cream);
-  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
-  border: 1px solid var(--border);
-  box-shadow: 0 4px 18px rgba(121,0,47,0.08);
-  font-size: 12.5px; font-weight: 600; color: var(--ink); letter-spacing: 0.01em;
-  opacity: 0; cursor: pointer;
-  transition: transform 0.6s var(--ease-spring), opacity 0.5s var(--ease-out), box-shadow var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out), filter var(--dur-base) var(--ease-out);
-}
-.store-reveal-stage.revealed .store-pill { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-.store-pill:hover, .store-pill:focus-visible, .store-pill.selected {
-  transform: translate(-50%, -50%) scale(1.09) translateY(-5px);
-  box-shadow: 0 16px 34px rgba(121,0,47,0.18);
-  background: rgba(255,255,255,0.92);
-  filter: brightness(1.03);
-  z-index: 20;
-}
-@media (max-width: 700px) {
-  .store-reveal-stage { min-height: 420px; }
-  .store-pill { padding: 8px 14px; font-size: 11.5px; }
-}
-
-/* ── Slide 3: Compare + Verified ── */
-.compare-slide { background: var(--cream); }
-.compare-slide .slide-glow { width: 520px; height: 520px; background: radial-gradient(circle, rgba(121,0,47,0.05) 0%, transparent 70%); top: -140px; inset-inline-end: -140px; }
-.trust-badge { display: inline-flex; align-items: center; gap: 10px; background: var(--white); border: 1.5px solid var(--border); border-radius: 16px; padding: 12px 16px; margin-top: var(--space-6); box-shadow: var(--shadow-sm); }
-.trust-badge-icon { width: 34px; height: 34px; border-radius: 10px; background: var(--gold-pale); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.trust-badge-icon svg { width: 17px; height: 17px; color: var(--crimson); }
-.trust-badge-text { text-align: start; }
-.trust-badge-text strong { display: block; font-size: 13.5px; color: var(--ink); font-weight: 700; }
-.trust-badge-text span { font-size: 12.5px; color: var(--muted); }
-
-/* ── Slide 4: How it works — timeline ── */
-.how-slide { background: var(--white); }
-.how-slide .slide-inner { max-width: 720px; text-align: center; }
-.how-slide .eyebrow, .how-slide .slide-title { justify-content: center; margin-inline: auto; }
-.timeline { position: relative; text-align: start; margin-top: var(--space-6); display: flex; flex-direction: column; gap: var(--space-6); padding-inline-start: 40px; }
-.timeline::before { content: ''; position: absolute; inset-inline-start: 27px; top: -18px; bottom: 8px; width: 2px; background: var(--border); z-index: 0; }
-.timeline::after { content: ''; position: absolute; inset-inline-start: 27px; top: -18px; bottom: 8px; width: 2px; background: linear-gradient(to bottom, var(--gold), var(--crimson)); transform: scaleY(0); transform-origin: top; transition: transform 1.3s var(--ease-out); z-index: 0; }
-.timeline.visible::after { transform: scaleY(1); }
-.timeline-step { position: relative; display: flex; gap: var(--space-5); align-items: flex-start; z-index: 1; }
-.timeline-node { width: 56px; height: 56px; border-radius: 50%; background: var(--crimson); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; box-shadow: var(--shadow-md); position: relative; inset-inline-start: -40px; margin-inline-end: -40px; z-index: 2; }
-.timeline-node svg { width: 22px; height: 22px; }
-.timeline-content h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
-body.ar .timeline-content h3 { font-family: 'Cairo', sans-serif; }
-.timeline-content p { font-size: 14.5px; color: var(--muted); line-height: 1.75; max-width: 440px; }
-
-/* ── Slide 5: Alerts + History — chart ── */
-.trend-slide { background: var(--cream); }
-.alert-chip { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 8px 14px; margin-top: var(--space-5); }
-.alert-chip svg { width: 14px; height: 14px; color: var(--crimson); flex-shrink: 0; }
-.alert-chip span { font-size: 12.5px; font-weight: 600; color: var(--ink); }
-.chart-card { width: 100%; background: var(--crimson-deep); border-radius: var(--radius-lg); padding: var(--space-6); box-shadow: var(--shadow-xl); position: relative; overflow: hidden; }
-.chart-card::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 85% 0%, rgba(234,160,5,0.12) 0%, transparent 55%); pointer-events: none; }
-.chart-head { position: relative; display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-6); }
-.chart-head-title { font-size: 11px; color: rgba(255,255,255,0.40); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 6px; }
-.chart-head-price { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 900; color: var(--gold); direction: ltr; unicode-bidi: isolate; }
-.chart-head-change { font-size: 12px; color: #4ade80; font-weight: 700; }
-.chart-head-note { font-size: 11px; color: rgba(255,255,255,0.35); margin-top: 3px; }
-.chart-canvas { position: relative; height: 160px; }
-.chart-canvas svg { width: 100%; height: 100%; overflow: visible; }
-.chart-path { stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset 1.6s var(--ease-out); }
-.draw-in.visible .chart-path { stroke-dashoffset: 0; }
-.chart-area { opacity: 0; transition: opacity 1s var(--ease-out) 0.5s; }
-.draw-in.visible .chart-area { opacity: 1; }
-.chart-labels { position: relative; display: flex; justify-content: space-between; margin-top: var(--space-4); }
-.chart-labels span { font-size: 10.5px; color: rgba(255,255,255,0.30); }
-
-/* ── Slide 6: Cashback — big stat ── */
-.cashback-slide { background: var(--white); text-align: center; position: relative; overflow: hidden; }
-.cashback-slide .slide-glow { width: 600px; height: 600px; background: radial-gradient(circle, rgba(234,160,5,0.10) 0%, transparent 70%); top: -180px; inset-inline-start: 50%; transform: translateX(-50%); }
-.cashback-slide .eyebrow, .cashback-slide .slide-title, .cashback-slide .slide-body { justify-content: center; margin-inline: auto; }
-.cashback-slide .slide-body { text-align: center; margin-bottom: var(--space-7); }
-.stat-ring-wrap { position: relative; width: 220px; height: 220px; margin: 0 auto var(--space-7); display: flex; align-items: center; justify-content: center; }
-.stat-ring-wrap svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
-.stat-ring-track { stroke: var(--border); }
-.stat-ring-progress { stroke: var(--gold); stroke-linecap: round; stroke-dasharray: 283; stroke-dashoffset: 283; transition: stroke-dashoffset 1.4s var(--ease-out) 0.2s; }
-.fade-scale.visible .stat-ring-progress { stroke-dashoffset: 84; }
-.stat-ring-num { font-family: 'Playfair Display', serif; font-size: 56px; font-weight: 900; color: var(--crimson); direction: ltr; unicode-bidi: isolate; }
-.cashback-perks { display: flex; flex-direction: column; gap: 14px; max-width: 440px; margin: 0 auto var(--space-7); text-align: start; }
-.perk { display: flex; gap: 12px; align-items: flex-start; }
-.perk-dot { width: 7px; height: 7px; background: var(--gold); border-radius: 50%; margin-top: 7px; flex-shrink: 0; }
-.perk p { font-size: 14px; color: var(--muted); line-height: 1.65; }
-.wallet-chips { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
-.wallet-chip { display: flex; align-items: center; gap: 8px; background: var(--cream); border: 1px solid var(--border); border-radius: 20px; padding: 9px 14px; }
-.wallet-chip-name { font-size: 12px; color: var(--muted); }
-.wallet-chip-amt { font-size: 12.5px; font-weight: 700; color: var(--crimson); direction: ltr; unicode-bidi: isolate; }
-
-/* ── Slide 7: Library + Sell + Data ── */
-.library-slide { background: var(--cream); }
-.library-slide .slide-glow { width: 480px; height: 480px; background: radial-gradient(circle, rgba(121,0,47,0.05) 0%, transparent 70%); bottom: -140px; inset-inline-start: -100px; }
-.library-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-top: var(--space-5); }
-.lib-badge { display: flex; align-items: center; gap: 7px; background: var(--white); border: 1px solid var(--border); border-radius: 20px; padding: 8px 13px; }
-.lib-badge.filled { background: var(--gold-pale); border-color: rgba(234,160,5,0.3); }
-.lib-badge svg { width: 13px; height: 13px; color: var(--crimson); }
-.lib-badge span { font-size: 12px; font-weight: 600; color: var(--ink); }
-.data-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: var(--space-6); }
-.data-tag { display: flex; align-items: center; gap: 6px; background: var(--white); border: 1px solid var(--border); padding: 7px 13px; border-radius: 20px; font-size: 11.5px; font-weight: 600; color: var(--crimson); }
-.data-tag svg { width: 12px; height: 12px; flex-shrink: 0; }
-
-/* ── Slide 8: Community — mosaic ── */
-.community-slide { background: var(--white); position: relative; overflow: hidden; }
-.community-slide .slide-glow { width: 460px; height: 460px; background: radial-gradient(circle, rgba(234,160,5,0.06) 0%, transparent 70%); top: -140px; inset-inline-end: -100px; }
-.community-slide .slide-inner { text-align: center; }
-.community-slide .eyebrow, .community-slide .slide-title, .community-slide .slide-body { justify-content: center; margin-inline: auto; }
-.community-slide .slide-body { text-align: center; margin: 0 auto var(--space-7); }
-.mosaic { display: grid; grid-template-columns: 1fr; gap: var(--space-4); text-align: start; max-width: 900px; margin: 0 auto; }
-@media (min-width: 768px) { .mosaic { grid-template-columns: 1fr 1fr; } }
-.mosaic-post { background: var(--cream); border-radius: var(--radius); padding: var(--space-5); border: 1.5px solid var(--border); transition: box-shadow var(--dur-base) var(--ease-out), transform var(--dur-base) var(--ease-out); }
-.mosaic-post:hover { box-shadow: var(--shadow-md); transform: translateY(-4px); }
-.mosaic-post.featured { grid-column: 1 / -1; background: var(--crimson); border-color: transparent; padding: var(--space-6); }
-.mosaic-post.featured .comm-post-text { color: #fff; font-size: 18px; font-family: 'Playfair Display', serif; font-weight: 700; line-height: 1.4; }
-body.ar .mosaic-post.featured .comm-post-text { font-family: 'Cairo', sans-serif; }
-.mosaic-post.featured .comm-post-user { color: rgba(255,255,255,0.65); }
-.mosaic-post.featured .comm-post-footer { color: rgba(255,255,255,0.55); }
-.mosaic-post.featured .comm-badge.article { background: rgba(255,255,255,0.16); color: #fff; }
-.comm-post-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-.comm-badge { font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 20px; letter-spacing: 0.05em; }
-.comm-badge.inquiry { background: rgba(121,0,47,0.09); color: var(--crimson); }
-.comm-badge.sale { background: rgba(234,160,5,0.14); color: var(--crimson); }
-.comm-badge.article { background: rgba(30,100,200,0.09); color: #1a5cbf; }
-.comm-post-user { font-size: 12px; color: var(--muted); font-weight: 500; }
-.comm-post-text { font-size: 14px; color: var(--ink); line-height: 1.6; margin-bottom: 12px; }
-.comm-post-footer { display: flex; gap: 16px; font-size: 12px; color: var(--muted); }
-.comm-post-footer span { display: flex; align-items: center; gap: 5px; }
-.comm-post-footer svg { width: 13px; height: 13px; opacity: 0.6; flex-shrink: 0; }
-
-/* ── Slide 9: Accord AI — glass panel ── */
-.ai-slide { background: var(--cream); position: relative; overflow: hidden; }
-.ai-slide .slide-glow.a { width: 420px; height: 420px; background: radial-gradient(circle, rgba(234,160,5,0.14) 0%, transparent 70%); top: -100px; inset-inline-start: -60px; }
-.ai-slide .slide-glow.b { width: 380px; height: 380px; background: radial-gradient(circle, rgba(121,0,47,0.10) 0%, transparent 70%); bottom: -100px; inset-inline-end: -60px; }
-.ai-panel { position: relative; background: rgba(255,255,255,0.62); backdrop-filter: blur(22px); -webkit-backdrop-filter: blur(22px); border: 1.5px solid rgba(255,255,255,0.6); border-radius: var(--radius-lg); box-shadow: var(--shadow-xl); padding: var(--space-6); max-width: 420px; margin: 0 auto; }
-.ai-panel-header { display: flex; align-items: center; gap: 12px; padding-bottom: 17px; border-bottom: 1px solid var(--border); margin-bottom: 17px; }
-.ai-avatar { width: 42px; height: 42px; background: var(--white); border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; border: 1.5px solid var(--border); flex-shrink: 0; }
-.ai-avatar img { width: 28px; height: 28px; object-fit: contain; }
-.ai-name { font-weight: 700; font-size: 15px; color: var(--ink); }
-.ai-status { font-size: 11px; color: #16a34a; font-weight: 600; }
-.ai-bubble { padding: 13px 16px; border-radius: 16px; font-size: 13.5px; line-height: 1.65; margin-bottom: 10px; max-width: 92%; }
-.ai-bubble.assistant { background: var(--white); border: 1px solid var(--border); border-bottom-left-radius: 4px; color: var(--ink); }
-body.ar .ai-bubble.assistant { border-bottom-left-radius: 16px; border-bottom-right-radius: 4px; }
-.ai-bubble.user { background: var(--crimson); color: #fff; margin-inline-start: auto; border-bottom-right-radius: 4px; }
-body.ar .ai-bubble.user { border-bottom-right-radius: 16px; border-bottom-left-radius: 4px; }
+/* ── Slides 2-6: five text+image feature slides ── */
+.info-slide { background: var(--white); }
+.search-slide { background: var(--cream); }
+.personalize-slide { background: var(--white); }
+.price-slide { background: var(--cream); }
+.trust-slide { background: var(--white); }
+.info-slide .highlight-card, .personalize-slide .highlight-card, .trust-slide .highlight-card { background: var(--cream); }
+.search-slide .highlight-card, .price-slide .highlight-card { background: var(--white); }
 
 /* ── Slide 10: Final CTA ── */
 .install-slide { background: var(--parchment); text-align: center; position: relative; overflow: hidden; border-top: 1.5px solid rgba(121,0,47,0.08); }
@@ -505,12 +342,12 @@ body.ar .contact-card-title { font-family: 'Cairo', sans-serif; }
    RESPONSIVE
 ══════════════════════════════════════════ */
 @media (max-width: 700px) {
-  section, .slide { padding: 72px 20px; }
+  section, .slide { padding: 28px 20px; }
   .hero-slide { padding-top: 104px; }
-  .float-chip { padding: 8px 11px; }
-  .float-chip-num { font-size: 14px; }
-  .store-badges { flex-direction: column; align-items: stretch; width: 100%; max-width: 300px; margin-inline: auto; }
-  .store-badge { justify-content: center; }
+  .store-badges { flex-direction: row; flex-wrap: nowrap; align-items: stretch; width: 100%; max-width: 360px; margin-inline: auto; }
+  .store-badge { justify-content: center; flex: 1 1 0; padding-left: 10px; padding-right: 10px; }
+  .store-badge strong { font-size: 12.5px; }
+  .store-badge small { font-size: 8px; }
   .contact-cards { grid-template-columns: 1fr; }
 }
 
@@ -559,7 +396,6 @@ function toggleLang() {
   currentLang = currentLang === 'en' ? 'ar' : 'en';
   localStorage.setItem('yd_lang', currentLang);
   applyLang();
-  if (typeof buildStoreCluster === 'function') buildStoreCluster();
 }
 
 </script>
@@ -593,22 +429,7 @@ function toggleLang() {
 
       <div class="tv-visual fade-scale" aria-hidden="true">
         <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="float-chip float-chip-alert">
-            <div class="float-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-            <div><div class="float-chip-num">-12%</div><div class="float-chip-label" data-i18n="feat_alerts_title" style="text-transform:none"></div></div>
-          </div>
-          <div class="device-frame">
-            <div class="device-screen">
-              <div class="device-notch"></div>
-              <img src="assets/الصفحة الرئيسية - 2.webp" width="1170" height="2532" alt="Yourdis home screen — search and compare fragrance prices" loading="eager" fetchpriority="high" />
-              <div class="device-sheen"></div>
-            </div>
-          </div>
-          <div class="float-chip float-chip-cashback">
-            <div class="float-chip-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div>
-            <div><div class="float-chip-num">2%</div><div class="float-chip-label" data-i18n="stat_cashback_label" style="text-transform:none"></div></div>
-          </div>
+          <img class="device-mockup" src="assets/image6.png" alt="Yourdis home screen — search and compare fragrance prices" loading="eager" fetchpriority="high" />
         </div>
       </div>
 
@@ -637,249 +458,71 @@ function toggleLang() {
 </section>
 
 <!-- ══════════════════════════════════════════
-     SLIDE 2 — STORE TRUST CLUSTER  (Interactive visual)
+     SLIDE 2 — FRAGRANCE INSIGHTS  (Text + real screenshot)
 ══════════════════════════════════════════ -->
-<section class="stores-slide slide" id="stores">
-  <div class="slide-glow a"></div>
-  <div class="slide-glow b"></div>
+<section class="info-slide slide" id="fragrance-info">
   <div class="slide-inner">
-    <div class="tv-grid">
-
+    <div class="tv-grid reversed">
       <div class="tv-text">
-        <h2 class="slide-title" style="font-size:clamp(26px,4.5vw,42px)" data-i18n="stores_reveal_hint"></h2>
-        <p class="slide-body" data-i18n="feat_verified_body" style="margin-inline:auto"></p>
-        <button type="button" class="reveal-btn" id="reveal-stores-btn" aria-expanded="false" aria-controls="store-cluster">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><circle cx="19" cy="6" r="2"/><circle cx="5" cy="6" r="2"/><circle cx="19" cy="18" r="2"/><circle cx="5" cy="18" r="2"/></svg>
-          <span data-i18n="stores_reveal_cta"></span>
-        </button>
+        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="fragrance_info_title"></h2>
+        <p class="slide-body" data-i18n="fragrance_info_body" style="margin-inline:auto"></p>
       </div>
-
-      <div class="tv-visual">
-        <div class="store-reveal-stage" id="store-reveal-stage">
-          <div class="store-default" aria-hidden="true">
-            <div class="device-stage">
-              <div class="device-glow"></div>
-              <div class="device-frame">
-                <div class="device-screen">
-                  <div class="device-notch"></div>
-                  <img src="assets/المتاجر - 4.webp" width="1170" height="2532" alt="Yourdis verified stores list" loading="lazy" />
-                  <div class="device-sheen"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="store-cluster-wrap">
-            <div class="store-cluster" id="store-cluster" role="group" aria-label="Verified store network"></div>
-          </div>
-        </div>
+      <div class="highlight-list">
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s-8-4-8-10V5l8-3 8 3v7c0 6-8 10-8 10z"/></svg></div><div><div class="highlight-card-title" data-i18n="fragrance_info_point1"></div><div class="highlight-card-desc" data-i18n="fragrance_info_point1_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div><div><div class="highlight-card-title" data-i18n="fragrance_info_point2"></div><div class="highlight-card-desc" data-i18n="fragrance_info_point2_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="highlight-card-title" data-i18n="fragrance_info_point3"></div><div class="highlight-card-desc" data-i18n="fragrance_info_point3_desc"></div></div></div>
       </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE 3 — COMPARE + VERIFIED STORES  (Text + real screenshot)
-══════════════════════════════════════════ -->
-<section class="compare-slide slide" id="compare">
-  <div class="slide-glow"></div>
-  <div class="slide-inner">
-    <div class="tv-grid">
-
-      <div class="tv-text">
-        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="feat_compare_title"></h2>
-        <p class="slide-body" data-i18n="feat_compare_body" style="margin-inline:auto"></p>
-        <div class="trust-badge">
-          <div class="trust-badge-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div>
-          <div class="trust-badge-text"><strong data-i18n="feat_verified_title"></strong><span data-i18n="stat_stores_label"></span></div>
-        </div>
-      </div>
-
       <div class="tv-visual fade-scale" aria-hidden="true">
         <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="device-frame">
-            <div class="device-screen">
-              <div class="device-notch"></div>
-              <img src="assets/تفاصيل العطر - 1.webp" width="1170" height="2532" alt="Yourdis price comparison across verified stores" loading="lazy" />
-              <div class="device-sheen"></div>
-            </div>
-          </div>
+          <img class="device-mockup" src="assets/image7.png" alt="Yourdis fragrance accords, price history, and community reactions" loading="lazy" />
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════
-     SLIDE 4 — HOW IT WORKS  (Timeline infographic)
+     SLIDE 3 — SEARCH & DISCOVER  (Text + real screenshot)
 ══════════════════════════════════════════ -->
-<section class="how-slide slide" id="how">
-  <div class="slide-inner">
-    <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="how_section_title"></h2>
-
-    <div class="timeline fade-up draw-in" id="how-timeline">
-      <div class="timeline-step fade-left">
-        <div class="timeline-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div>
-        <div class="timeline-content"><h3 data-i18n="how_step1_title"></h3><p data-i18n="how_step1_body"></p></div>
-      </div>
-      <div class="timeline-step fade-left fade-up-d2">
-        <div class="timeline-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></div>
-        <div class="timeline-content"><h3 data-i18n="how_step2_title"></h3><p data-i18n="how_step2_body"></p></div>
-      </div>
-      <div class="timeline-step fade-left fade-up-d3">
-        <div class="timeline-node"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
-        <div class="timeline-content"><h3 data-i18n="how_step3_title"></h3><p data-i18n="how_step3_body"></p></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE 5 — PRICE ALERTS + HISTORY  (Chart infographic)
-══════════════════════════════════════════ -->
-<section class="trend-slide slide">
+<section class="search-slide slide" id="search">
   <div class="slide-inner">
     <div class="tv-grid">
       <div class="tv-text">
-        <h2 class="slide-title" style="font-size:clamp(26px,4.5vw,40px)" data-i18n="feat_history_title"></h2>
-        <p class="slide-body" data-i18n="feat_history_body" style="margin-inline:auto"></p>
-        <div class="alert-chip">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-          <span data-i18n="feat_alerts_title"></span>
-        </div>
+        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="search_discover_title"></h2>
+        <p class="slide-body" data-i18n="search_discover_body" style="margin-inline:auto"></p>
       </div>
-
-      <div class="tv-visual draw-in fade-scale" style="width:100%">
-      <div class="chart-card">
-        <div class="chart-head">
-          <div><div class="chart-head-title" data-i18n="feat_history_chart_title"></div><div class="chart-head-price" data-i18n="feat_history_chart_price"></div></div>
-          <div style="text-align:end"><div class="chart-head-change" data-i18n="feat_history_chart_change"></div><div class="chart-head-note" data-i18n="feat_history_chart_note"></div></div>
-        </div>
-        <div class="chart-canvas">
-          <svg viewBox="0 0 400 160" preserveAspectRatio="none">
-            <defs><linearGradient id="chartAreaGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#EAA005" stop-opacity="0.28"/><stop offset="100%" stop-color="#EAA005" stop-opacity="0"/></linearGradient></defs>
-            <path class="chart-area" fill="url(#chartAreaGrad)" d="M0,118 C26,112 53,108 80,90 C106,72 120,42 146,47 C173,52 186,100 213,94 C240,88 266,60 293,56 C320,52 346,80 373,66 L400,60 L400,160 L0,160 Z" pathLength="1" />
-            <path class="chart-path" fill="none" stroke="#EAA005" stroke-width="3" stroke-linecap="round" pathLength="1" d="M0,118 C26,112 53,108 80,90 C106,72 120,42 146,47 C173,52 186,100 213,94 C240,88 266,60 293,56 C320,52 346,80 373,66 L400,60" />
-            <circle cx="400" cy="60" r="5" fill="#EAA005" /><circle cx="400" cy="60" r="10" fill="#EAA005" opacity="0.22" />
-          </svg>
-        </div>
-        <div class="chart-labels">
-          <span data-i18n="feat_history_month_1"></span><span data-i18n="feat_history_month_2"></span>
-          <span data-i18n="feat_history_month_3"></span><span data-i18n="feat_history_month_4"></span>
-          <span data-i18n="feat_history_month_5"></span><span data-i18n="feat_history_month_6"></span>
-        </div>
+      <div class="highlight-list">
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg></div><div><div class="highlight-card-title" data-i18n="search_discover_point1"></div><div class="highlight-card-desc" data-i18n="search_discover_point1_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg></div><div><div class="highlight-card-title" data-i18n="search_discover_point2"></div><div class="highlight-card-desc" data-i18n="search_discover_point2_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20M2 12h20"/></svg></div><div><div class="highlight-card-title" data-i18n="search_discover_point3"></div><div class="highlight-card-desc" data-i18n="search_discover_point3_desc"></div></div></div>
       </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE 6 — CASHBACK  (Big-stat hero)
-══════════════════════════════════════════ -->
-<section class="cashback-slide slide" id="cashback">
-  <div class="slide-glow"></div>
-  <div class="slide-inner">
-    <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="cashback_section_title"></h2>
-    <p class="slide-body" data-i18n="cashback_section_sub"></p>
-
-    <div class="stat-ring-wrap fade-scale">
-      <svg viewBox="0 0 100 100"><circle class="stat-ring-track" cx="50" cy="50" r="45" fill="none" stroke-width="6"/><circle class="stat-ring-progress" cx="50" cy="50" r="45" fill="none" stroke-width="6"/></svg>
-      <span class="stat-ring-num">2%</span>
-    </div>
-
-    <div class="cashback-perks fade-up">
-      <div class="perk"><div class="perk-dot"></div><p data-i18n="cashback_perk1"></p></div>
-      <div class="perk"><div class="perk-dot"></div><p data-i18n="cashback_perk2"></p></div>
-      <div class="perk"><div class="perk-dot"></div><p data-i18n="cashback_perk3"></p></div>
-    </div>
-
-    <div class="wallet-chips fade-up">
-      <div class="wallet-chip"><span class="wallet-chip-name" data-i18n="cashback_txn1"></span><span class="wallet-chip-amt" data-i18n="cashback_txn1_amount"></span></div>
-      <div class="wallet-chip"><span class="wallet-chip-name" data-i18n="cashback_txn2"></span><span class="wallet-chip-amt" data-i18n="cashback_txn2_amount"></span></div>
-      <div class="wallet-chip"><span class="wallet-chip-name" data-i18n="cashback_txn3"></span><span class="wallet-chip-amt" data-i18n="cashback_txn3_amount"></span></div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE 7 — LIBRARY + SELL + RICH DATA  (Text + real screenshot)
-══════════════════════════════════════════ -->
-<section class="library-slide slide" id="library">
-  <div class="slide-glow"></div>
-  <div class="slide-inner">
-    <div class="tv-grid">
-
-      <div class="tv-text">
-        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="feat_library_title"></h2>
-        <p class="slide-body" data-i18n="feat_library_body" style="margin-inline:auto"></p>
-        <div class="library-badges">
-          <span class="lib-badge filled"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span data-i18n="feat_sell_title"></span></span>
-          <span class="lib-badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg><span data-i18n="feat_sell_perk1"></span></span>
-        </div>
-        <div class="data-tags">
-          <span class="data-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41"/></svg><span data-i18n="feat_data_tag_family"></span></span>
-          <span class="data-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s-8-4-8-10V5l8-3 8 3v7c0 6-8 10-8 10z"/></svg><span data-i18n="feat_data_tag_accords"></span></span>
-          <span class="data-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2a5 5 0 1 0 0 10A5 5 0 0 0 12 2z"/><path d="M12 12v10"/></svg><span data-i18n="feat_data_tag_notes"></span></span>
-          <span class="data-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg><span data-i18n="feat_data_tag_perfumer"></span></span>
-          <span class="data-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span data-i18n="feat_data_tag_year"></span></span>
-          <span class="data-tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/><circle cx="12" cy="12" r="3"/></svg><span data-i18n="feat_data_tag_season"></span></span>
-        </div>
-      </div>
-
       <div class="tv-visual fade-scale" aria-hidden="true">
         <div class="device-stage">
-          <div class="device-glow"></div>
-          <div class="device-frame">
-            <div class="device-screen">
-              <div class="device-notch"></div>
-              <img src="assets/المكتبة العطرية - 3.webp" width="1170" height="2532" alt="Yourdis personal fragrance library and saved collections" loading="lazy" />
-              <div class="device-sheen"></div>
-            </div>
-          </div>
+          <img class="device-mockup" src="assets/image5.png" alt="Yourdis advanced search and filters" loading="lazy" />
         </div>
       </div>
-
     </div>
   </div>
 </section>
 
 <!-- ══════════════════════════════════════════
-     SLIDE 8 — COMMUNITY  (Editorial mosaic)
+     SLIDE 4 — PERSONALIZE  (Text + real screenshot)
 ══════════════════════════════════════════ -->
-<section class="community-slide slide" id="community">
-  <div class="slide-glow"></div>
+<section class="personalize-slide slide" id="personalize">
   <div class="slide-inner">
-    <p class="eyebrow" data-i18n="community_section_label"></p>
-    <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="community_section_title"></h2>
-    <p class="slide-body" data-i18n="community_section_sub"></p>
-
-    <div class="mosaic">
-      <div class="mosaic-post featured fade-scale">
-        <div class="comm-post-header"><span class="comm-badge article" data-i18n="comm_badge_article"></span><span class="comm-post-user">Layla R.</span></div>
-        <p class="comm-post-text" data-i18n="comm_post3_text"></p>
-        <div class="comm-post-footer">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="comm_post3_replies"></span></span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span data-i18n="comm_post3_views"></span></span>
-        </div>
+    <div class="tv-grid reversed">
+      <div class="tv-text">
+        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="personalize_title"></h2>
+        <p class="slide-body" data-i18n="personalize_body" style="margin-inline:auto"></p>
       </div>
-      <div class="mosaic-post fade-up">
-        <div class="comm-post-header"><span class="comm-badge inquiry" data-i18n="comm_badge_inquiry"></span><span class="comm-post-user">Mohammed A.</span></div>
-        <p class="comm-post-text" data-i18n="comm_post1_text"></p>
-        <div class="comm-post-footer">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="comm_post1_replies"></span></span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span data-i18n="comm_post1_views"></span></span>
-        </div>
+      <div class="highlight-list">
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div><div><div class="highlight-card-title" data-i18n="personalize_point1"></div><div class="highlight-card-desc" data-i18n="personalize_point1_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div><div><div class="highlight-card-title" data-i18n="personalize_point2"></div><div class="highlight-card-desc" data-i18n="personalize_point2_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div><div><div class="highlight-card-title" data-i18n="personalize_point3"></div><div class="highlight-card-desc" data-i18n="personalize_point3_desc"></div></div></div>
       </div>
-      <div class="mosaic-post fade-up fade-up-d2">
-        <div class="comm-post-header"><span class="comm-badge sale" data-i18n="comm_badge_sale"></span><span class="comm-post-user">Sara K.</span></div>
-        <p class="comm-post-text" data-i18n="comm_post2_text"></p>
-        <div class="comm-post-footer">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span data-i18n="comm_post2_replies"></span></span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg><span data-i18n="comm_post2_views"></span></span>
+      <div class="tv-visual fade-scale" aria-hidden="true">
+        <div class="device-stage">
+          <img class="device-mockup" src="assets/image2.png" alt="Yourdis personal fragrance library, price alerts, and community activity" loading="lazy" />
         </div>
       </div>
     </div>
@@ -887,27 +530,47 @@ function toggleLang() {
 </section>
 
 <!-- ══════════════════════════════════════════
-     SLIDE 9 — ACCORD AI  (Floating glass panel)
+     SLIDE 5 — BEST PRICE  (Text + real screenshot)
 ══════════════════════════════════════════ -->
-<section class="ai-slide slide">
-  <div class="slide-glow a"></div>
-  <div class="slide-glow b"></div>
+<section class="price-slide slide" id="best-price">
   <div class="slide-inner">
     <div class="tv-grid">
       <div class="tv-text">
-        <p class="eyebrow" data-i18n="ai_section_label"></p>
-        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="ai_section_title"></h2>
-        <p class="slide-body" data-i18n="ai_section_sub" style="margin-inline:auto"></p>
+        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="best_price_title"></h2>
+        <p class="slide-body" data-i18n="best_price_body" style="margin-inline:auto"></p>
       </div>
+      <div class="highlight-list">
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point1"></div><div class="highlight-card-desc" data-i18n="best_price_point1_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point2"></div><div class="highlight-card-desc" data-i18n="best_price_point2_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point3"></div><div class="highlight-card-desc" data-i18n="best_price_point3_desc"></div></div></div>
+      </div>
+      <div class="tv-visual fade-scale" aria-hidden="true">
+        <div class="device-stage">
+          <img class="device-mockup" src="assets/image3.png" alt="Yourdis price comparison across verified stores" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-      <div class="tv-visual fade-scale">
-        <div class="ai-panel">
-          <div class="ai-panel-header">
-            <div class="ai-avatar"><img src="assets/icon_Light.png" alt="Accord AI" /></div>
-            <div><div class="ai-name" data-i18n="ai_name"></div><div class="ai-status" data-i18n="ai_status"></div></div>
-          </div>
-          <div class="ai-bubble user" data-i18n="ai_bubble_user"></div>
-          <div class="ai-bubble assistant" data-i18n="ai_bubble_assistant"></div>
+<!-- ══════════════════════════════════════════
+     SLIDE 6 — TRUSTED STORES  (Text + real screenshot)
+══════════════════════════════════════════ -->
+<section class="trust-slide slide" id="trusted-stores">
+  <div class="slide-inner">
+    <div class="tv-grid reversed">
+      <div class="tv-text">
+        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="trusted_pricing_title"></h2>
+        <p class="slide-body" data-i18n="trusted_pricing_body" style="margin-inline:auto"></p>
+      </div>
+      <div class="highlight-list">
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg></div><div><div class="highlight-card-title" data-i18n="trusted_pricing_point1"></div><div class="highlight-card-desc" data-i18n="trusted_pricing_point1_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 4v6h-6"/><path d="M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></div><div><div class="highlight-card-title" data-i18n="trusted_pricing_point2"></div><div class="highlight-card-desc" data-i18n="trusted_pricing_point2_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></svg></div><div><div class="highlight-card-title" data-i18n="trusted_pricing_point3"></div><div class="highlight-card-desc" data-i18n="trusted_pricing_point3_desc"></div></div></div>
+      </div>
+      <div class="tv-visual fade-scale" aria-hidden="true">
+        <div class="device-stage">
+          <img class="device-mockup" src="assets/image4.png" alt="Yourdis verified stores list" loading="lazy" />
         </div>
       </div>
     </div>
@@ -956,73 +619,9 @@ function toggleLang() {
 /**
  * Yourdis — App Script
  * ─────────────────────────────────────────
- * Handles: store cluster, scroll reveal, analytics.
+ * Handles: scroll reveal, analytics.
  * Loaded only by index.html (landing page).
  */
-
-/* ── Store discovery: orbital pill cluster ── */
-function seededRandom(seed) {
-  const x = Math.sin(seed * 9973.13) * 10000;
-  return x - Math.floor(x);
-}
-function buildStoreCluster() {
-  const wrap = document.getElementById('store-cluster');
-  if (!wrap || !Array.isArray(stores)) return;
-  const n = stores.length;
-  // Concentric orbital rings around an empty center — pill count grows with ring radius
-  // so spacing stays even; each ring is angle-offset from the last to avoid "spoke" alignment.
-  // Radius scales down on narrow viewports so wide pills at the horizontal extremes never clip.
-  const narrow = window.innerWidth < 560;
-  const scale = narrow ? 0.72 : 1;
-  const rings = [
-    { count: 4, radius: 20 * scale },
-    { count: 8, radius: 38 * scale },
-    { count: Math.max(0, n - 12), radius: 56 * scale },
-  ];
-  let idx = 0;
-  let html = '';
-  rings.forEach((ring, ringIdx) => {
-    const step = 360 / ring.count;
-    const offset = ringIdx * (step / 2.4) + ringIdx * 9;
-    for (let i = 0; i < ring.count && idx < n; i++, idx++) {
-      const s = stores[idx];
-      const name = s[currentLang] ?? s.en;
-      const angle = (step * i + offset) * Math.PI / 180;
-      const jitter = (seededRandom(idx * 4.4) - 0.5) * 2.4;
-      const r = ring.radius + jitter;
-      const x = (50 + Math.cos(angle) * r).toFixed(2);
-      const y = (50 + Math.sin(angle) * r).toFixed(2);
-      const delay = (idx * 0.04).toFixed(2);
-      html += `<button type="button" class="store-pill" style="left:${x}%;top:${y}%;transition-delay:${delay}s" aria-label="${name}"><span>${name}</span></button>`;
-    }
-  });
-  wrap.innerHTML = html;
-}
-document.getElementById('store-cluster')?.addEventListener('click', (e) => {
-  const btn = e.target.closest('.store-pill');
-  if (!btn) return;
-  btn.classList.toggle('selected');
-});
-const revealBtn = document.getElementById('reveal-stores-btn');
-const revealStage = document.getElementById('store-reveal-stage');
-revealBtn?.addEventListener('click', () => {
-  const isRevealed = revealStage.classList.toggle('revealed');
-  revealBtn.setAttribute('aria-expanded', String(isRevealed));
-});
-// Auto-reverse when the section leaves the viewport, so every visit can replay the reveal.
-const storesSection = document.getElementById('stores');
-if (storesSection && revealStage) {
-  const storesSectionObs = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (!e.isIntersecting && revealStage.classList.contains('revealed')) {
-        revealStage.classList.remove('revealed');
-        revealBtn?.setAttribute('aria-expanded', 'false');
-        revealStage.querySelectorAll('.store-pill.selected').forEach(p => p.classList.remove('selected'));
-      }
-    });
-  }, { threshold: 0 });
-  storesSectionObs.observe(storesSection);
-}
 
 /* ── Scroll reveal ── */
 const revealObs = new IntersectionObserver(entries => {
@@ -1069,7 +668,6 @@ document.querySelectorAll('#btn-googleplay, #btn-googleplay-hero').forEach(el =>
 /* ── Init ── */
 document.addEventListener('DOMContentLoaded', () => {
   applyLang();
-  buildStoreCluster();
 });
 
 </script>

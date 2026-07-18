@@ -67,6 +67,69 @@ const translations = {
     en: 'Everything you need<br>for smarter fragrance shopping',
     ar: 'كل ما تحتاجه<br>للتسوق بذكاء أكبر',
   },
+  // ─── Landing page — 5 feature slides ───────────────────────────
+  fragrance_info_title: { en: 'Everything you need to know about your fragrance', ar: 'كل ما تحتاج معرفته عن عطرك' },
+  fragrance_info_body: {
+    en: 'Explore the main accords, fragrance notes, price history, and community ratings and reactions — along with detailed information to help you get to know the fragrance and make an informed purchase decision.',
+    ar: 'اطلع على الاتفاقات الرئيسية، والنوتات العطرية، وتاريخ تغير الأسعار، وتقييمات وتفاعلات المجتمع، إلى جانب معلومات تفصيلية تساعدك على التعرف على العطر واتخاذ قرار شراء مدروس.',
+  },
+  search_discover_title: { en: 'Search and discover your perfect fragrance', ar: 'ابحث واكتشف عطرك المثالي' },
+  search_discover_body: {
+    en: 'Find any fragrance in Yourdis\'s catalog with our smart search engine. Search by fragrance name, brand, or notes — or use advanced search to filter by season, house, release year, country of origin, gender, fragrance families, and more, to reach the right fragrance fast.',
+    ar: 'اعثر على أي عطر من خلال كتالوج يوردس باستخدام محرك البحث الذكي. ابحث باسم العطر، أو العلامة التجارية، أو النوتات العطرية، أو استخدم أدوات البحث المتقدم للتصفية حسب الموسم، والدار، وسنة الإصدار، وبلد المنشأ، والجنس، والعائلات العطرية، وغيرها من الخيارات للوصول إلى العطر المناسب بسرعة.',
+  },
+  personalize_title: { en: 'Customize your experience your way', ar: 'خصص تجربتك كما تريد' },
+  personalize_body: {
+    en: 'Build your fragrance library, make it private or public, and share it with friends. Track price alerts for the fragrances you care about, and set your interests and preferences so Yourdis can suggest fragrances that match your taste.',
+    ar: 'أنشئ مكتبتك العطرية واجعلها خاصة أو عامة، وشاركها مع أصدقائك. تابع تنبيهات الأسعار للعطور التي تهمك، وحدد اهتماماتك وتفضيلاتك ليقدم لك يوردس اقتراحات وعطورًا تناسب ذوقك.',
+  },
+  best_price_title: { en: 'The best price, in one place', ar: 'أفضل سعر في مكان واحد' },
+  best_price_body: {
+    en: 'Compare a fragrance\'s price across every store and every available size on a single page, and find the best deal available — while reviewing all the fragrance details and information Yourdis gathers to help you make your purchase decision.',
+    ar: 'قارن أسعار العطر بين مختلف المتاجر ومن خلال جميع الأحجام المتوفرة في صفحة واحدة، واعرف أفضل عرض متاح، مع الاطلاع على جميع تفاصيل العطر والمعلومات التي يجمعها يوردس لمساعدتك في اتخاذ قرار الشراء.',
+  },
+  trusted_pricing_title: { en: 'Trusted stores, always up to date', ar: 'متاجر موثوقة وأسعار محدثة' },
+  trusted_pricing_body: {
+    en: 'Yourdis gathers fragrance prices from a network of trusted online stores, with continuous price updates, so you can compare and buy with confidence — with no fees or markup added to the store\'s price.',
+    ar: 'يجمع يوردس أسعار العطور من شبكة من المتاجر الإلكترونية الموثوقة، مع تحديث مستمر للأسعار، لتتمكن من المقارنة والشراء بثقة، دون أي رسوم أو زيادة على سعر المتجر.',
+  },
+
+  // ─── Highlight cards (icon + title + short description) ───
+  fragrance_info_point1: { en: 'Main accords & notes', ar: 'الاتفاقات والنوتات' },
+  fragrance_info_point1_desc: { en: 'Understand the fragrance\'s key ingredients and notes in detail.', ar: 'تعرّف على مكونات العطر الرئيسية والنوتات العطرية بالتفصيل.' },
+  fragrance_info_point2: { en: 'Real price history', ar: 'تاريخ الأسعار' },
+  fragrance_info_point2_desc: { en: 'See how the price has changed over time before you buy.', ar: 'تابع كيف تغيّر سعر العطر عبر الوقت قبل ما تشتري.' },
+  fragrance_info_point3: { en: 'Community reactions', ar: 'آراء المجتمع' },
+  fragrance_info_point3_desc: { en: 'See ratings and reactions from users who\'ve tried it.', ar: 'شوف تقييمات وتفاعلات مستخدمين جربوا نفس العطر.' },
+
+  search_discover_point1: { en: 'Smart search', ar: 'بحث ذكي' },
+  search_discover_point1_desc: { en: 'Search by name, brand, or fragrance note directly.', ar: 'دوّر بالاسم، البراند، أو النوتة العطرية مباشرة.' },
+  search_discover_point2: { en: 'Advanced filters', ar: 'فلاتر متقدمة' },
+  search_discover_point2_desc: { en: 'Filter by season, house, and release year.', ar: 'صفّي حسب الموسم، الدار، وسنة الإصدار.' },
+  search_discover_point3: { en: 'Precise targeting', ar: 'تخصيص دقيق' },
+  search_discover_point3_desc: { en: 'Set gender and fragrance family for a faster match.', ar: 'حدد الجنس والعائلة العطرية للوصول أسرع.' },
+
+  personalize_point1: { en: 'Your own library', ar: 'مكتبتك الخاصة' },
+  personalize_point1_desc: { en: 'Save your fragrances, keep them private or share them.', ar: 'احفظ عطورك واجعلها خاصة أو شاركها مع الكل.' },
+  personalize_point2: { en: 'Price alerts', ar: 'تنبيهات الأسعار' },
+  personalize_point2_desc: { en: 'Get notified the moment a favorite\'s price drops.', ar: 'نوصلك إشعار أول ما ينزل سعر عطر مفضل.' },
+  personalize_point3: { en: 'Personalized picks', ar: 'اقتراحات مخصصة' },
+  personalize_point3_desc: { en: 'Yourdis automatically suggests scents matching your taste.', ar: 'يوردس يقترح عطور تناسب ذوقك تلقائياً.' },
+
+  best_price_point1: { en: 'Every store', ar: 'كل المتاجر' },
+  best_price_point1_desc: { en: 'See every store\'s price on a single page.', ar: 'شوف كل الأسعار من كل المتاجر بصفحة وحدة.' },
+  best_price_point2: { en: 'Every size', ar: 'كل الأحجام' },
+  best_price_point2_desc: { en: 'Compare prices across every available size.', ar: 'قارن السعر عبر كل الأحجام المتوفرة للعطر.' },
+  best_price_point3: { en: 'Best deal', ar: 'أفضل عرض' },
+  best_price_point3_desc: { en: 'We sort cheapest-first so you decide fast.', ar: 'نرتّب لك الأرخص أول عشان تقرر بسرعة.' },
+
+  trusted_pricing_point1: { en: 'Trusted network', ar: 'شبكة موثوقة' },
+  trusted_pricing_point1_desc: { en: 'Stores manually reviewed and verified.', ar: 'متاجر تمّت مراجعتها والتحقق منها يدوياً.' },
+  trusted_pricing_point2: { en: 'Always updated', ar: 'تحديث مستمر' },
+  trusted_pricing_point2_desc: { en: 'Prices update continuously to stay accurate.', ar: 'الأسعار تتحدث باستمرار عشان تكون دقيقة.' },
+  trusted_pricing_point3: { en: 'No extra fees', ar: 'بدون رسوم' },
+  trusted_pricing_point3_desc: { en: 'You pay the exact store price, no markup.', ar: 'تدفع نفس سعر المتجر تماماً، بدون أي زيادة.' },
+
   feat_compare_title: { en: 'Real-time price comparison', ar: 'مقارنة الأسعار في الوقت الفعلي' },
   feat_compare_body: {
     en: 'Every listing is pulled live from store integrations. You always see the true current price — no guessing, no outdated data.',
