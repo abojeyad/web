@@ -320,10 +320,7 @@ const translations = {
     en: 'Compare prices, set alerts, and earn cashback on every purchase — all from one app.',
     ar: 'قارن الأسعار، تلقَّ التنبيهات، واكسب استرداداً نقدياً على كل عملية شراء — كل ذلك من تطبيق واحد.',
   },
-  install_appstore_pre: { en: 'Download on the', ar: 'حمّل من' },
-  install_appstore_name: { en: 'App Store', ar: 'App Store' },
-  install_googleplay_pre: { en: 'Get it on', ar: 'احصل عليه من' },
-  install_googleplay_name: { en: 'Google Play', ar: 'Google Play' },
+  install_cta_title: { en: 'Download the App', ar: 'تنزيل التطبيق' },
 
   // ─── Footer ──────────────────────────────────────────────────
 
