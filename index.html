@@ -63,107 +63,9 @@
 -->
 
 <script src="translations.js" defer></script>
+<link rel="stylesheet" href="base.css" />
 
 <style>
-/* ══════════════════════════════════════════
-   YOURDIS — SHARED STYLESHEET
-   Used by all pages. Page-specific rules are
-   grouped at the bottom.
-══════════════════════════════════════════ */
-
-/* ─── Tokens ─── */
-:root {
-  --crimson: #79002F;
-  --crimson-deep: #4C0025;
-  --gold: #EAA005;
-  --gold-pale: #fdf3da;
-  --cream: #FDF6EE;
-  --parchment: #F5EDE0;
-  --cashback-bg: #F7EFE5;
-  --ink: #1a0a0f;
-  --muted: #7a5f68;
-  --border: rgba(121,0,47,0.11);
-  --white: #ffffff;
-  --radius: 20px;
-  --radius-sm: 12px;
-  --radius-lg: 28px;
-
-  /* Spacing scale (4/8pt rhythm) */
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-5: 24px;
-  --space-6: 32px;
-  --space-7: 48px;
-  --space-8: 64px;
-  --space-9: 96px;
-
-  /* Elevation scale */
-  --shadow-sm: 0 2px 12px rgba(121,0,47,0.07);
-  --shadow-md: 0 8px 28px rgba(121,0,47,0.09);
-  --shadow-lg: 0 18px 52px rgba(121,0,47,0.12);
-  --shadow-xl: 0 28px 80px rgba(121,0,47,0.16);
-
-  /* Motion */
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --dur-fast: 150ms;
-  --dur-base: 250ms;
-  --dur-slow: 400ms;
-}
-
-/* ─── Reset & Base ─── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--ink); overflow-x: hidden; }
-body.ar { font-family: 'Cairo', sans-serif; direction: rtl; }
-img { display: block; max-width: 100%; }
-a { text-decoration: none; color: inherit; }
-button { cursor: pointer; border: none; background: none; font-family: inherit; }
-
-/* ─── Focus & Motion ─── */
-a:focus-visible, button:focus-visible {
-  outline: 2.5px solid var(--crimson);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
-  .fade-up, .fade-left, .fade-right, .fade-scale, .draw-in { opacity: 1 !important; transform: none !important; }
-}
-
-/* ─── Shared Sections ─── */
-section { padding: 100px 24px; }
-.container { max-width: 1100px; margin: 0 auto; }
-.section-label {
-  font-size: 11px; font-weight: 700; letter-spacing: 0.18em;
-  text-transform: uppercase; color: var(--gold); margin-bottom: 14px;
-}
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(28px, 5vw, 48px); font-weight: 900;
-  line-height: 1.15; color: var(--ink); margin-bottom: 18px;
-}
-body.ar .section-title { font-family: 'Cairo', sans-serif; line-height: 1.4; }
-.section-sub { font-size: 16px; color: var(--muted); line-height: 1.75; max-width: 520px; }
-
-/* ─── Animations ─── */
-.fade-up { opacity: 0; transform: translateY(26px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
-.fade-up.visible { opacity: 1; transform: translateY(0); }
-.fade-left { opacity: 0; transform: translateX(-28px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
-.fade-left.visible { opacity: 1; transform: translateX(0); }
-.fade-right { opacity: 0; transform: translateX(28px); transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out); }
-.fade-right.visible { opacity: 1; transform: translateX(0); }
-.fade-scale { opacity: 0; transform: scale(0.94); transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out); }
-.fade-scale.visible { opacity: 1; transform: scale(1); }
-.fade-up-d1 { transition-delay: 0.10s; }
-.fade-up-d2 { transition-delay: 0.20s; }
-.fade-up-d3 { transition-delay: 0.30s; }
-.fade-up-d4 { transition-delay: 0.40s; }
-
-
 /* ══════════════════════════════════════════
    LANDING PAGE V2 — 10 SLIDES
 ══════════════════════════════════════════ */
@@ -184,8 +86,8 @@ body.ar .slide-title { font-family: 'Cairo', sans-serif; line-height: 1.35; }
 .tv-text .eyebrow { justify-content: center; }
 .tv-visual { grid-area: visual; display: flex; justify-content: center; }
 @media (min-width: 1024px) {
-  .tv-grid { grid-template-columns: 40% 60%; grid-template-areas: "text visual" "highlights visual"; align-items: center; row-gap: var(--space-3); column-gap: var(--space-8); }
-  .tv-grid.reversed { grid-template-columns: 60% 40%; grid-template-areas: "visual text" "visual highlights"; }
+  .tv-grid { grid-template-columns: 6fr 5fr; grid-template-areas: "text visual" "highlights visual"; align-items: center; row-gap: var(--space-3); column-gap: var(--space-7); }
+  .tv-grid.reversed { grid-template-areas: "visual text" "visual highlights"; }
   .tv-text { text-align: start; }
   .tv-text .eyebrow { justify-content: flex-start; }
 }
@@ -205,6 +107,7 @@ body.ar .highlight-card-title { font-family: 'Cairo', sans-serif; }
 @media (min-width: 1024px) { .tv-text .store-badges { justify-content: flex-start; } }
 .download-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  position: relative; overflow: hidden;
   background: linear-gradient(160deg, #3a0f1c, var(--crimson-deep) 55%, #2a0a12); color: #fff;
   padding: 15px 30px; border-radius: 50px;
   border: 1px solid rgba(234,160,5,0.18);
@@ -214,17 +117,39 @@ body.ar .highlight-card-title { font-family: 'Cairo', sans-serif; }
 }
 .download-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(76,0,37,0.42); border-color: rgba(234,160,5,0.32); }
 .download-btn:active { transform: translateY(0); }
-.download-btn svg { width: 19px; height: 19px; flex-shrink: 0; }
+.download-btn svg.download-icon { width: 19px; height: 19px; flex-shrink: 0; }
+.btn-border-trace { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; }
+.btn-border-trace path {
+  fill: none;
+  stroke: rgba(234,160,5,0.8);
+  stroke-width: 1.75px;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 1.5px rgba(234,160,5,0.5));
+}
+.download-btn::after {
+  content: ''; position: absolute; top: 0; inset-inline-start: -60%;
+  width: 45%; height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  transform: skewX(-20deg);
+  animation: btnShine 2s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes btnShine {
+  0% { inset-inline-start: -60%; }
+  55% { inset-inline-start: 130%; }
+  100% { inset-inline-start: 130%; }
+}
+@media (prefers-reduced-motion: reduce) { .download-btn::after { animation: none; } }
 
 /* ─── Device mockup (pre-made mockup image, frame baked in — shown as-is) ─── */
 .device-stage { position: relative; display: flex; justify-content: center; align-items: flex-start; padding: 0; }
 .device-mockup {
   position: relative; z-index: 2;
-  width: min(72vw, 320px); height: auto; max-width: 100%;
+  width: min(58.5vw, 261px); height: auto; max-width: 100%;
   animation: deviceFloat 6.5s ease-in-out infinite;
 }
 @media (min-width: 1024px) {
-  .device-mockup { width: clamp(300px, 28vw, 400px); }
+  .device-mockup { width: clamp(240px, 22.4vw, 320px); }
 }
 @keyframes deviceFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
@@ -267,13 +192,13 @@ body.ar .hero-headline { font-family: 'Cairo', sans-serif; line-height: 1.3; }
 @media (min-width: 1024px) { .hero-sub { text-align: start; } }
 
 /* ── Slides 2-6: five text+image feature slides ── */
-.info-slide { background: var(--white); }
-.search-slide { background: var(--cream); }
-.personalize-slide { background: var(--white); }
-.price-slide { background: var(--cream); }
+.info-slide { background: var(--cream); }
+.search-slide { background: var(--white); }
+.personalize-slide { background: var(--cream); }
+.price-slide { background: var(--white); }
 .trust-slide { background: var(--white); }
-.info-slide .highlight-card, .personalize-slide .highlight-card, .trust-slide .highlight-card { background: var(--cream); }
-.search-slide .highlight-card, .price-slide .highlight-card { background: var(--white); }
+.price-slide .highlight-card, .search-slide .highlight-card, .trust-slide .highlight-card { background: var(--cream); }
+.info-slide .highlight-card, .personalize-slide .highlight-card { background: var(--white); }
 
 /* ── Slide 10: Final CTA ── */
 .install-slide { background: var(--parchment); text-align: center; position: relative; overflow: hidden; border-top: 1.5px solid rgba(121,0,47,0.08); }
@@ -348,51 +273,7 @@ body.ar .contact-card-title { font-family: 'Cairo', sans-serif; }
 </style>
 </head>
 <body class="en">
-<script>
-/**
- * Yourdis — i18n Engine
- * ─────────────────────────────────────────
- * Reads from the global `translations` object (translations.js).
- * Used by all pages.
- */
-
-let currentLang = localStorage.getItem('yd_lang') || 'en';
-
-function t(key) {
-  const entry = translations[key];
-  if (!entry) { console.warn('[i18n] missing key:', key); return key; }
-  return entry[currentLang] ?? entry['en'] ?? key;
-}
-
-function applyTranslations() {
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    el.innerHTML = t(el.dataset.i18n);
-  });
-  document.querySelectorAll('[data-i18n-aria]').forEach(el => {
-    el.setAttribute('aria-label', t(el.dataset.i18nAria));
-  });
-}
-
-function applyLang() {
-  const isAr = currentLang === 'ar';
-  document.documentElement.lang = currentLang;
-  document.documentElement.dir = isAr ? 'rtl' : 'ltr';
-  document.body.classList.toggle('ar', isAr);
-  document.body.classList.toggle('en', !isAr);
-  applyTranslations();
-  // Update any visible lang toggles
-  document.querySelectorAll('.js-lang-toggle').forEach(el => {
-    el.textContent = isAr ? 'English' : 'العربية';
-  });
-}
-
-function toggleLang() {
-  currentLang = currentLang === 'en' ? 'ar' : 'en';
-  localStorage.setItem('yd_lang', currentLang);
-  applyLang();
-}
-
-</script>
+<script src="i18n.js"></script>
 
 <div data-shared-header></div>
 <script src="shared-header.js" defer></script>
@@ -411,7 +292,8 @@ function toggleLang() {
         <p class="hero-sub" data-i18n="hero_sub"></p>
         <div class="store-badges">
           <a href="https://yourdis.com" class="download-btn js-download-btn" id="btn-download-hero">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            <svg class="btn-border-trace" aria-hidden="true"><path/></svg>
+            <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             <span data-i18n="install_cta_title"></span>
           </a>
         </div>
@@ -448,7 +330,31 @@ function toggleLang() {
 </section>
 
 <!-- ══════════════════════════════════════════
-     SLIDE 2 — FRAGRANCE INSIGHTS  (Text + real screenshot)
+     SLIDE 2 — BEST PRICE  (Text + real screenshot)
+══════════════════════════════════════════ -->
+<section class="price-slide slide" id="best-price">
+  <div class="slide-inner">
+    <div class="tv-grid">
+      <div class="tv-text">
+        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="best_price_title"></h2>
+        <p class="slide-body" data-i18n="best_price_body" style="margin-inline:auto"></p>
+      </div>
+      <div class="highlight-list">
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point1"></div><div class="highlight-card-desc" data-i18n="best_price_point1_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point2"></div><div class="highlight-card-desc" data-i18n="best_price_point2_desc"></div></div></div>
+        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point3"></div><div class="highlight-card-desc" data-i18n="best_price_point3_desc"></div></div></div>
+      </div>
+      <div class="tv-visual fade-scale" aria-hidden="true">
+        <div class="device-stage">
+          <img class="device-mockup" src="assets/image3.png" alt="Yourdis price comparison across verified stores" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     SLIDE 3 — FRAGRANCE INSIGHTS  (Text + real screenshot)
 ══════════════════════════════════════════ -->
 <section class="info-slide slide" id="fragrance-info">
   <div class="slide-inner">
@@ -472,7 +378,7 @@ function toggleLang() {
 </section>
 
 <!-- ══════════════════════════════════════════
-     SLIDE 3 — SEARCH & DISCOVER  (Text + real screenshot)
+     SLIDE 4 — SEARCH & DISCOVER  (Text + real screenshot)
 ══════════════════════════════════════════ -->
 <section class="search-slide slide" id="search">
   <div class="slide-inner">
@@ -496,7 +402,7 @@ function toggleLang() {
 </section>
 
 <!-- ══════════════════════════════════════════
-     SLIDE 4 — PERSONALIZE  (Text + real screenshot)
+     SLIDE 5 — PERSONALIZE  (Text + real screenshot)
 ══════════════════════════════════════════ -->
 <section class="personalize-slide slide" id="personalize">
   <div class="slide-inner">
@@ -513,30 +419,6 @@ function toggleLang() {
       <div class="tv-visual fade-scale" aria-hidden="true">
         <div class="device-stage">
           <img class="device-mockup" src="assets/image2.png" alt="Yourdis personal fragrance library, price alerts, and community activity" loading="lazy" />
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════
-     SLIDE 5 — BEST PRICE  (Text + real screenshot)
-══════════════════════════════════════════ -->
-<section class="price-slide slide" id="best-price">
-  <div class="slide-inner">
-    <div class="tv-grid">
-      <div class="tv-text">
-        <h2 class="slide-title" style="font-size:clamp(28px,5vw,46px)" data-i18n="best_price_title"></h2>
-        <p class="slide-body" data-i18n="best_price_body" style="margin-inline:auto"></p>
-      </div>
-      <div class="highlight-list">
-        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point1"></div><div class="highlight-card-desc" data-i18n="best_price_point1_desc"></div></div></div>
-        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point2"></div><div class="highlight-card-desc" data-i18n="best_price_point2_desc"></div></div></div>
-        <div class="highlight-card"><div class="highlight-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4z"/></svg></div><div><div class="highlight-card-title" data-i18n="best_price_point3"></div><div class="highlight-card-desc" data-i18n="best_price_point3_desc"></div></div></div>
-      </div>
-      <div class="tv-visual fade-scale" aria-hidden="true">
-        <div class="device-stage">
-          <img class="device-mockup" src="assets/image3.png" alt="Yourdis price comparison across verified stores" loading="lazy" />
         </div>
       </div>
     </div>
@@ -588,7 +470,8 @@ function toggleLang() {
       </div>
       <div class="store-badges">
         <a href="https://yourdis.com" class="download-btn js-download-btn" id="btn-download-cta">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg class="btn-border-trace" aria-hidden="true"><path/></svg>
+          <svg class="download-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span data-i18n="install_cta_title"></span>
         </a>
       </div>
@@ -660,6 +543,91 @@ document.querySelectorAll('.js-download-btn').forEach(el => {
   el.addEventListener('click', () => {
     trackEvent('app_download_click', { store: storeDestination.store, page_lang: currentLang });
   }, { passive: true });
+});
+
+/* ── Animated border pulse: a complete, always-connected outline with a soft traveling
+   ripple (ECG-like) that bulges the line gently as it loops the pill shape ── */
+const BORDER_PULSE_PERIOD_MS = 2600;
+const BORDER_PULSE_AMPLITUDE = 3;
+const BORDER_PULSE_SIGMA_FRAC = 0.05;
+const borderPulseReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+let borderPulseTargets = [];
+let borderPulseRafId = null;
+
+function borderPulseGeom(btn) {
+  const w = btn.clientWidth, h = btn.clientHeight;
+  if (!w || !h) return null;
+  const inset = 1;
+  const r = h / 2 - inset;
+  const x0 = inset, y0 = inset, x1 = w - inset, y1 = h - inset;
+  const topLen = Math.max(0, (x1 - x0) - 2 * r);
+  const L = 2 * topLen + 2 * Math.PI * r;
+  return { x0, y0, x1, y1, r, topLen, L, cxR: x1 - r, cxL: x0 + r, cy: (y0 + y1) / 2 };
+}
+
+function borderPulsePointAt(geom, s) {
+  const { x0, y0, x1, y1, r, topLen, L, cxR, cxL, cy } = geom;
+  let rem = ((s % L) + L) % L;
+  if (rem < topLen) return { x: x0 + r + rem, y: y0, nx: 0, ny: -1 };
+  rem -= topLen;
+  const halfCirc = Math.PI * r;
+  if (rem < halfCirc) {
+    const th = -Math.PI / 2 + rem / r;
+    return { x: cxR + r * Math.cos(th), y: cy + r * Math.sin(th), nx: Math.cos(th), ny: Math.sin(th) };
+  }
+  rem -= halfCirc;
+  if (rem < topLen) return { x: x1 - r - rem, y: y1, nx: 0, ny: 1 };
+  rem -= topLen;
+  const th = Math.PI / 2 + rem / r;
+  return { x: cxL + r * Math.cos(th), y: cy + r * Math.sin(th), nx: Math.cos(th), ny: Math.sin(th) };
+}
+
+function borderPulseBuildPath(geom, sPulse) {
+  const N = Math.max(60, Math.round(geom.L / 4));
+  const sigma = geom.L * BORDER_PULSE_SIGMA_FRAC;
+  let d = '';
+  for (let i = 0; i <= N; i++) {
+    const s = (i / N) * geom.L;
+    let bump = 0;
+    if (sPulse !== null) {
+      let diff = s - sPulse;
+      diff = (((diff + geom.L / 2) % geom.L) + geom.L) % geom.L - geom.L / 2;
+      bump = BORDER_PULSE_AMPLITUDE * Math.exp(-(diff * diff) / (2 * sigma * sigma));
+    }
+    const p = borderPulsePointAt(geom, s);
+    const x = (p.x + p.nx * bump).toFixed(2);
+    const y = (p.y + p.ny * bump).toFixed(2);
+    d += i === 0 ? `M ${x} ${y} ` : `L ${x} ${y} `;
+  }
+  return d + 'Z';
+}
+
+function animateBorderPulse(now) {
+  const sPulseFrac = (now % BORDER_PULSE_PERIOD_MS) / BORDER_PULSE_PERIOD_MS;
+  borderPulseTargets.forEach(({ path, geom }) => {
+    path.setAttribute('d', borderPulseBuildPath(geom, sPulseFrac * geom.L));
+  });
+  borderPulseRafId = requestAnimationFrame(animateBorderPulse);
+}
+
+function refreshBorderPulse() {
+  borderPulseTargets = Array.from(document.querySelectorAll('.download-btn')).map(btn => {
+    const path = btn.querySelector('.btn-border-trace path');
+    const geom = path ? borderPulseGeom(btn) : null;
+    return geom ? { btn, path, geom } : null;
+  }).filter(Boolean);
+
+  if (borderPulseReduceMotion) {
+    if (borderPulseRafId !== null) { cancelAnimationFrame(borderPulseRafId); borderPulseRafId = null; }
+    borderPulseTargets.forEach(({ path, geom }) => path.setAttribute('d', borderPulseBuildPath(geom, null)));
+    return;
+  }
+  if (borderPulseRafId === null) borderPulseRafId = requestAnimationFrame(animateBorderPulse);
+}
+window.addEventListener('load', refreshBorderPulse);
+window.addEventListener('resize', () => {
+  clearTimeout(window._btrResizeTimer);
+  window._btrResizeTimer = setTimeout(refreshBorderPulse, 150);
 });
 
 /* ── Init ── */

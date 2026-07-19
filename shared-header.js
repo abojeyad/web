@@ -34,6 +34,7 @@
     }
     .site-nav .nav-logo img { height: 34px; width: auto; display: block; }
     .site-nav .nav-right { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+    .site-nav .nav-mobile-logo { display: none; }
     .site-nav .nav-links { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
     .site-nav .nav-link {
       font-size: 13px; font-weight: 600; color: var(--muted);
@@ -95,8 +96,17 @@
     @media (max-width: 700px) {
       .site-nav { justify-content: flex-end; }
       .site-nav .nav-logo { display: none; }
-      .site-nav .nav-right { width: 100%; justify-content: space-between; }
+      .site-nav .nav-right { width: 100%; justify-content: space-between; position: relative; }
       .site-nav .nav-mobile-toggle { display: flex; }
+      .site-nav .nav-mobile-logo {
+        display: flex;
+        align-items: center;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .site-nav .nav-mobile-logo img { height: 26px; width: auto; display: block; }
       .site-nav .nav-links {
         display: none;
         position: absolute;
@@ -130,6 +140,7 @@
           <span class="nav-mobile-toggle-bar"></span>
           <span class="nav-mobile-toggle-bar"></span>
         </button>
+        <a class="nav-mobile-logo" href="index.html" data-i18n-aria="nav_home_aria"><img src="assets/logo_Light.png" alt="Yourdis" /></a>
         <div class="nav-links">
           <a class="nav-link nav-home" href="index.html" data-i18n="nav_home"></a>
           <a class="nav-link" href="privacy-policy.html" data-nav-key="privacy" data-i18n="footer_privacy"></a>
